@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-const FullWidthOverflowWrapper: FC<{
+const FullWidthOverflowScrollWrapper: FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   return (
@@ -8,4 +8,4 @@ const FullWidthOverflowWrapper: FC<{
   );
 };
 
-export default FullWidthOverflowWrapper;
+export default FullWidthOverflowScrollWrapper;

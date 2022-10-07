@@ -1,4 +1,4 @@
-import { withAuthCSR } from '@src/components/hoc';
+import { withAuthSSR } from '@src/components/hoc';
 import { PageLayout } from '@src/components/layout';
 import PostCommentTemplate from '@src/components/template/PostPage/PostCommentTemplate';
 import CommonBackwardHeader from '@src/components/ui/atom/Header/CommonBackwardHeader';
@@ -6,6 +6,8 @@ import DetailPostCard from '@src/components/ui/molecule/PostCard/DetailPostCard'
 import { samplePostData } from '@src/core/data/sample-post-data';
 import { useRouter } from 'next/router';
 import React from 'react';
+
+export const getServerSideProps = withAuthSSR();
 
 const PostPage = () => {
   const router = useRouter();
@@ -30,4 +32,4 @@ const PostPage = () => {
   );
 };
 
-export default withAuthCSR(PostPage);
+export default PostPage;

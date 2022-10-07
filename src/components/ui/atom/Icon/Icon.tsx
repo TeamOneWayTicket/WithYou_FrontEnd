@@ -6,7 +6,12 @@ import { BsCameraFill, BsHouseDoor, BsPlus } from 'react-icons/bs';
 import { CgClose } from 'react-icons/cg';
 import { FaBabyCarriage, FaSearch } from 'react-icons/fa';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import {
+  IoIosArrowBack,
+  IoIosArrowForward,
+  IoMdArrowDropleft,
+  IoMdArrowDropright,
+} from 'react-icons/io';
 import { IoPeopleOutline } from 'react-icons/io5';
 
 import AlbumSvg from './assets/Album';
@@ -41,7 +46,9 @@ export type SVGTypes =
   | 'hamburger'
   | 'search'
   | 'leftArrow'
+  | 'dropLeftArrow'
   | 'rightArrow'
+  | 'dropRightArrow'
   | 'ellipsisVertical'
   | 'babyCarriage'
   | 'people'
@@ -74,7 +81,9 @@ const _Selector: { [key in SVGTypes]: FC<IconProps> } = {
   hamburger: GiHamburgerMenu,
   search: FaSearch,
   leftArrow: IoIosArrowBack,
+  dropLeftArrow: IoMdArrowDropleft,
   rightArrow: IoIosArrowForward,
+  dropRightArrow: IoMdArrowDropright,
   ellipsisVertical: EllipticVerticalSvg,
   babyCarriage: FaBabyCarriage,
   people: IoPeopleOutline,

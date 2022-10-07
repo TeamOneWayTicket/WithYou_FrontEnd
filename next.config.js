@@ -15,6 +15,7 @@ const nextConfig = {
   env: {
     BASE_API_URL: process.env.BASE_API_URL,
     KAKAO_CLIENT_ID: process.env.KAKAO_CLIENT_ID,
+    KAKAO_REDIRECT_URL: process.env.KAKAO_REDIRECT_URL,
   },
   images: {
     domains: ['unsplash.com'],

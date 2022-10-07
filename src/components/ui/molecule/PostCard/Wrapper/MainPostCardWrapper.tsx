@@ -3,7 +3,7 @@ import PostCardHeader from '@src/components/ui/atom/Header/PostCardHeader';
 import PostCardWrapper, {
   CommonPostCardWrapperProps,
 } from '@src/components/ui/molecule/PostCard/Wrapper/PostCardWrapper';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 
 const MainPostCardWrapper: FunctionComponent<CommonPostCardWrapperProps> = ({
   postInfo,

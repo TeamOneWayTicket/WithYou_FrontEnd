@@ -15,6 +15,7 @@ const PageLayout: FC<{
   headerTransparent?: boolean;
   headerBackgroundColor?: string;
   headerContent?: React.ReactNode;
+  overflowVisible?: boolean;
   showNavigation?: boolean;
 }> = ({
   children,
@@ -25,6 +26,7 @@ const PageLayout: FC<{
   headerTransparent = false,
   headerBackgroundColor,
   headerContent = <CommonHeader />,
+  overflowVisible = false,
   showNavigation = false,
 }) => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -44,7 +46,12 @@ const PageLayout: FC<{
   // it is for showing content on the top of bottom nav
   // it should be pb-0 on desktop size because bottom nav will not be shown
   return (
-    <div className="relative">
+    <div
+      className={cx(
+        'relative w-full max-w-mobile-app m-center',
+        overflowVisible ? 'overflow-visible' : 'overflow-hidden'
+      )}
+    >
       <HeaderWrapper
         fixed={headerFixed}
         transparent={headerTransparent}

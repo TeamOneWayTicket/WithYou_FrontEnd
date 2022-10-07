@@ -2,7 +2,6 @@ import '@src/styles/globals.css';
 
 import Analytics from '@src/components/analytics';
 import { ModalContainer } from '@src/components/container';
-import { CommonLayout } from '@src/components/layout';
 import { envConfig } from '@src/core/config/envConfig';
 import siteMetadata from '@src/core/config/siteMetadata';
 import { getAuthToken } from '@src/utils/authUtil';
@@ -35,9 +34,7 @@ const App: NextPage = ({ Component, pageProps, router }: AppProps) => {
       <Analytics />
       <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
         <RecoilRoot>
-          <CommonLayout>
-            <Component {...pageProps} key={router.route} />
-          </CommonLayout>
+          <Component {...pageProps} key={router.route} />
           <ModalContainer />
         </RecoilRoot>
         <ToastContainer />

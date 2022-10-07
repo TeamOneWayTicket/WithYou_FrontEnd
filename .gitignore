@@ -2,6 +2,7 @@
 
 # ide files
 .idea/
+.vscode/
 
 # cache
 .eslintcache

@@ -1,13 +1,14 @@
 import { FloatingButtonVariant } from '@src/animations/button';
 import { overLayVariants } from '@src/animations/common';
 import { openPostCreateModal } from '@src/atom/modal';
-import { Icon, IconButton } from '@src/components/ui/atom';
-import { SVGTypes } from '@src/components/ui/atom/Icon/Icon';
-import { toBeImplement } from '@src/utils/implUtil';
+import { IconButton } from '@src/components/ui/atom';
 import cx from 'classnames';
-import { AnimatePresence, motion, Variants } from 'framer-motion';
-import React, { FC, FunctionComponent, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import Link from 'next/link';
+import React, { FunctionComponent, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
+
+import FloatingSmallButtonWrapper from './wrapper/FloatingSmallButtonWrapper';
 
 export type FloatingButtonProps = {
   position?: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
@@ -19,33 +20,6 @@ const positionSelector: { [key in FloatingButtonProps['position']]: string } = {
   bottomLeft: 'bottom-[calc(0.5rem+theme(space.bt-nav))] left-[calc(theme(space.side-padding))]',
   bottomRight: 'bottom-[calc(0.5rem+theme(space.bt-nav))] right-[calc(theme(space.side-padding))]',
 };
-
-const FloatingSmallButtonWrapper: FC<{
-  custom: number;
-  variants: Variants;
-  iconName: SVGTypes;
-  children?: React.ReactNode;
-  onClick: () => void;
-}> = ({ custom, variants, iconName, children, onClick }) => (
-  <motion.button
-    custom={custom}
-    variants={variants}
-    className={cx(
-      '-z-10 absolute top-[-70%] left-[-70%]',
-      'flex items-center justify-center',
-      'w-28 h-10',
-      'rounded-xl border-2 border-solid border-gray-500',
-      'bg-white text-gray-800'
-    )}
-    initial="enter"
-    animate="center"
-    exit="exit"
-    onClick={onClick}
-  >
-    <Icon className="text-wy-blue-500" name={iconName} size={28} />
-    <p className="px-2 select-none text-wy-blue-500 font-PyeongChangPeace-Bold">{children}</p>
-  </motion.button>
-);
 
 const FloatingButton: FunctionComponent<FloatingButtonProps> = ({ position = 'bottomRight' }) => {
   const [active, setActive] = useState(false);
@@ -94,14 +68,15 @@ const FloatingButton: FunctionComponent<FloatingButtonProps> = ({ position = 'bo
               >
                 글쓰기
               </FloatingSmallButtonWrapper>
-              <FloatingSmallButtonWrapper
-                custom={4.5}
-                iconName="album-selected"
-                variants={FloatingButtonVariant}
-                onClick={toBeImplement}
-              >
-                앨범
-              </FloatingSmallButtonWrapper>
+              <Link href="/album">
+                <FloatingSmallButtonWrapper
+                  custom={4.5}
+                  iconName="album-selected"
+                  variants={FloatingButtonVariant}
+                >
+                  앨범
+                </FloatingSmallButtonWrapper>
+              </Link>
             </>
           )}
         </AnimatePresence>

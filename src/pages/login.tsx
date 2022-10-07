@@ -1,5 +1,5 @@
 import { PageSEO } from '@src/components/analytics/SEO';
-import { withShouldNoAuthCSR } from '@src/components/hoc';
+import { withShouldNoAuthSSR } from '@src/components/hoc';
 import { PageLayout } from '@src/components/layout';
 import { ImageWrapper } from '@src/components/ui/atom';
 import { SignInForm } from '@src/components/ui/molecule';
@@ -7,6 +7,8 @@ import siteMetadata from '@src/core/config/siteMetadata';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
+
+export const getServerSideProps = withShouldNoAuthSSR();
 
 const LoginPage: NextPage = () => {
   const router = useRouter();
@@ -31,4 +33,4 @@ const LoginPage: NextPage = () => {
   );
 };
 
-export default withShouldNoAuthCSR(LoginPage);
+export default LoginPage;

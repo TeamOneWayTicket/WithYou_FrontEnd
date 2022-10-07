@@ -10,6 +10,7 @@ export { default as InputBox } from './Input/InputBox';
 export { default as SelectBox } from './Input/SelectBox';
 
 // wrapper components
+export { default as CustomDatePicker } from './Calendar/CustomDatePicker';
 export { default as ImageWrapper } from './Wrapper/ImageWrapper';
 
 // Editor
@@ -21,4 +22,4 @@ export { default as FullScreenCamera } from './Camera/FullScreenCamera';
 
 // ETC
 export { default as Portal } from './Portal';
-export { default as FullWidthOverflowWrapper } from './Wrapper/FullWidthOverflowWrapper';
+export { default as FullWidthOverflowScrollWrapper } from './Wrapper/FullWidthOverflowScrollWrapper';

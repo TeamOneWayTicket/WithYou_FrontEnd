@@ -14,7 +14,7 @@ export default function useKakaoAuth({ router, onSuccess, onFailure }: KakaoAuth
       Kakao.init(envConfig.kakaoClientId);
     }
     Kakao.Auth.authorize({
-      redirectUri: 'https://backend.with-you.io/auth/kakao/callback',
+      redirectUri: envConfig.kakaoRedirectUrl,
     });
   };
 
