@@ -32,6 +32,44 @@ const openPostCreateModal = selector<Pick<ModalInfoType, 'fullScreen'>>({
   },
 });
 
+const openEmailSignInModal = selector<Pick<ModalInfoType, 'fullScreen'>>({
+  key: 'modalStateAtom/open/emailSignIn',
+  get: ({ get }) => {
+    return get(modalStateAtom);
+  },
+  set: ({ set }, newValue) => {
+    if (newValue instanceof DefaultValue) {
+      set(modalStateAtom, defaultState);
+    } else {
+      set(modalStateAtom, {
+        type: 'EMAILSIGNIN',
+        title: '로그인',
+        fullScreen: newValue.fullScreen,
+        option: null,
+      });
+    }
+  },
+});
+
+const openEmailSignUpModal = selector<Pick<ModalInfoType, 'fullScreen'>>({
+  key: 'modalStateAtom/open/emailSignUp',
+  get: ({ get }) => {
+    return get(modalStateAtom);
+  },
+  set: ({ set }, newValue) => {
+    if (newValue instanceof DefaultValue) {
+      set(modalStateAtom, defaultState);
+    } else {
+      set(modalStateAtom, {
+        type: 'EMAILSIGNUP',
+        title: '회원가입',
+        fullScreen: newValue.fullScreen,
+        option: null,
+      });
+    }
+  },
+});
+
 const closeModal = selector<void>({
   key: 'modalStateAtom/close',
   get: ({ get }) => {
@@ -42,4 +80,10 @@ const closeModal = selector<void>({
   },
 });
 
-export { closeModal, modalStateAtom, openPostCreateModal };
+export {
+  closeModal,
+  modalStateAtom,
+  openEmailSignInModal,
+  openEmailSignUpModal,
+  openPostCreateModal,
+};

@@ -1,6 +1,8 @@
 export type PostCreateModal = 'POSTCREATE';
+export type EmailSignInModal = 'EMAILSIGNIN';
+export type EmailSignUpModal = 'EMAILSIGNUP';
 
-export type ModalType = PostCreateModal;
+export type ModalType = PostCreateModal | EmailSignInModal | EmailSignUpModal;
 
 export type ModalInfoType = {
   type: ModalType | null;

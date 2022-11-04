@@ -6,10 +6,14 @@ export const commonRegex = {
   email: {
     regex:
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-    desc: 'Valid Email is required',
+    desc: '이메일 형식이 올바르지 않습니다.',
   },
   password: {
     regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-    desc: 'Password must be at least 8 characters, contain at least one lowercase letter, one uppercase letter, one number and one special character',
+    desc: '8자 이상의 영문 대소문자, 숫자, 특수문자를 사용하세요.',
+  },
+  role: {
+    regex: /^[가-힣a-zA-Z0-9]{2,10}$/,
+    desc: '2~10자의 한글 또는 영문 대소문자, 숫자만 사용 가능합니다.',
   },
 };

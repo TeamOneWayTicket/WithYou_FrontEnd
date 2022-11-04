@@ -4,20 +4,20 @@
   "private": true,
   "scripts": {
     "prepare": "husky install",
-    "dev": "cross-env NODE_ENV=development node server.js",
-    "dev:secure": "cross-env ENABLE_HTTPS=true node server.js",
+    "dev": "concurrently \"cross-env NODE_ENV=development node server.js\"",
+    "dev:secure": "concurrently \"cross-env NODE_ENV=production ENABLE_HTTPS=true node server.js\" \"yarn test:dev\"",
     "build": "cross-env NODE_ENV=production next build",
     "start": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "lint": "eslint",
-    "lint-fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix --ext .js,.jsx,.ts,.tsx .",
-    "lint-fix-prod": "cross-env NODE_ENV=production eslint --fix"
+    "test:dev": "jest --watch",
+    "test:build": "jest",
+    "lint": "eslint --fix"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
-      "yarn lint-fix"
+      "yarn lint"
     ],
     "src/**": [
       "prettier --write ."
@@ -62,6 +62,10 @@
     "@storybook/manager-webpack5": "^6.5.9",
     "@storybook/react": "^6.5.9",
     "@svgr/webpack": "^6.3.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/jest": "^29.2.0",
     "@types/js-cookie": "^3.0.2",
     "@types/kakao-js-sdk": "^1.39.1",
     "@types/node": "^18.0.3",
@@ -69,6 +73,7 @@
     "@types/react-datepicker": "^4.4.2",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "autoprefixer": "^10.4.7",
+    "concurrently": "^7.5.0",
     "eslint": "8.19.0",
     "eslint-config-next": "^12.2.0",
     "eslint-config-prettier": "^8.5.0",
@@ -78,10 +83,12 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-sonarjs": "^0.13.0",
     "husky": ">=7",
+    "jest": "^29.2.2",
     "lint-staged": ">=10",
     "postcss": "^8.4.14",
     "prettier": "^2.7.1",
     "tailwindcss": "^3.1.4",
+    "ts-jest": "^29.0.3",
     "tsconfig-paths-webpack-plugin": "^3.5.2",
     "typescript": "^4.7.4"
   },

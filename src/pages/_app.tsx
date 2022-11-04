@@ -1,27 +1,23 @@
 import '@src/styles/globals.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Analytics from '@src/components/analytics';
 import { ModalContainer } from '@src/components/container';
-import { envConfig } from '@src/core/config/envConfig';
 import siteMetadata from '@src/core/config/siteMetadata';
+import { customAxios, useAxiosEnvironment } from '@src/core/lib/customAxios';
 import { getAuthToken } from '@src/utils/authUtil';
-import axios from 'axios';
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ThemeProvider } from 'next-themes';
-import qs from 'qs';
 import { ToastContainer } from 'react-toastify';
 import { RecoilRoot } from 'recoil';
 
-axios.defaults.withCredentials = true;
-axios.defaults.baseURL = envConfig.apiUrl;
-axios.defaults.headers.common['Authorization'] = getAuthToken();
-axios.defaults.paramsSerializer = (params) => {
-  return qs.stringify(params);
-};
+customAxios().defaults.headers.common.Authorization = `Bearer ${getAuthToken()}`;
 
 const App: NextPage = ({ Component, pageProps, router }: AppProps) => {
+  useAxiosEnvironment();
+
   return (
     <>
       <Head>

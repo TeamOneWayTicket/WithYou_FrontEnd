@@ -4,7 +4,7 @@ import React from 'react';
 
 const ReviewCard = () => {
   return (
-    <Link href="/Users/woodi/Programs/proj/OneWayTicket/forked/WithYou_FrontEnd/src/pages/review">
+    <Link href="/review">
       <a>
         <div className="relative w-full h-30">
           <ImageWrapper

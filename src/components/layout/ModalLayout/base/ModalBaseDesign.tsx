@@ -12,7 +12,8 @@ const ModalBaseDesign: FC<{
       className={cx(
         'relative z-50 flex items-center max-w-mobile-app',
         fullScreen ? 'w-full h-full' : 'w-full h-auto py-8',
-        'bg-primary-bg'
+        'bg-primary-bg',
+        'rounded-lg'
       )}
       variants={fullScreen ? modalFullScreenVariants : modalVariants}
     >

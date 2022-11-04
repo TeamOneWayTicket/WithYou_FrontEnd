@@ -1,9 +1,18 @@
 import { apiValidate } from '@src/core/api/apiAuth';
+import { ValidateResult } from '@src/core/types/auth-type';
 import { clearAuthToken, setAuthToken } from '@src/utils/authUtil';
-import { GetServerSideProps } from 'next';
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 
-const withAuthSSR = (getServerSidePropsFunc?: GetServerSideProps) => {
-  return async (ctx) => {
+type WithAuthServerSideContext = GetServerSidePropsContext & {
+  credInfo?: ValidateResult;
+};
+
+const withAuthSSR = (
+  getServerSidePropsFunc?: (
+    ctx: WithAuthServerSideContext
+  ) => Promise<GetServerSidePropsResult<unknown>>
+) => {
+  return async (ctx: WithAuthServerSideContext) => {
     const token = ctx.req.cookies.jwt;
 
     if (!token) {
@@ -20,10 +29,8 @@ const withAuthSSR = (getServerSidePropsFunc?: GetServerSideProps) => {
     setAuthToken(token);
 
     try {
-      const {
-        user: { isNew },
-      } = await apiValidate();
-      if (isNew) {
+      const credInfo = await apiValidate();
+      if (credInfo.user.isNew) {
         return {
           props: {},
           redirect: {
@@ -32,7 +39,14 @@ const withAuthSSR = (getServerSidePropsFunc?: GetServerSideProps) => {
           },
         };
       }
-      return await getServerSidePropsFunc?.(ctx);
+      if (getServerSidePropsFunc) {
+        ctx.credInfo = credInfo;
+        getServerSidePropsFunc(ctx);
+        return getServerSidePropsFunc(ctx);
+      }
+      return {
+        props: {},
+      };
     } catch (error) {
       clearAuthToken();
       return {

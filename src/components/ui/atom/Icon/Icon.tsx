@@ -6,6 +6,7 @@ import { BsCameraFill, BsHouseDoor, BsPlus } from 'react-icons/bs';
 import { CgClose } from 'react-icons/cg';
 import { FaBabyCarriage, FaSearch } from 'react-icons/fa';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { HiOutlineMail } from 'react-icons/hi';
 import {
   IoIosArrowBack,
   IoIosArrowForward,
@@ -18,6 +19,7 @@ import AlbumSvg from './assets/Album';
 import AlbumSelectedSvg from './assets/AlbumSelected';
 import AppleLogo from './assets/AppleLogo';
 import CommentSvg from './assets/Comment';
+import DefaultProfileSVG from './assets/DefaultProfile';
 import EllipticVerticalSvg from './assets/EllipticVertical';
 import GoogleLogo from './assets/GoogleLogo';
 import KakaoLogo from './assets/KakaoLogo';
@@ -28,6 +30,7 @@ import StarSvg from './assets/Star';
 import UploadSVG from './assets/Upload';
 
 export type SVGTypes =
+  | 'defaultProfile'
   | 'setting'
   | 'upload'
   | 'close'
@@ -54,7 +57,8 @@ export type SVGTypes =
   | 'people'
   | 'google'
   | 'apple'
-  | 'kakao';
+  | 'kakao'
+  | 'email';
 
 export type IconProps = {
   name: SVGTypes;
@@ -63,6 +67,7 @@ export type IconProps = {
 };
 
 const _Selector: { [key in SVGTypes]: FC<IconProps> } = {
+  defaultProfile: DefaultProfileSVG,
   setting: SettingSVG,
   upload: UploadSVG,
   close: CgClose,
@@ -90,6 +95,7 @@ const _Selector: { [key in SVGTypes]: FC<IconProps> } = {
   google: GoogleLogo,
   apple: AppleLogo,
   kakao: KakaoLogo,
+  email: HiOutlineMail,
 };
 
 const Icon: FC<IconProps> = ({ name, ...props }) => {

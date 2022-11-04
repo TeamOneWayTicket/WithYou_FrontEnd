@@ -1,10 +1,10 @@
 // check cookies, axios header
-import axios from 'axios';
+import { customAxios } from '@src/core/lib/customAxios';
 import Cookies from 'js-cookie';
 
 export const setAuthToken = (token: string) => {
   Cookies.set('jwt', token);
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  customAxios().defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 export const getAuthToken = (): string => {
@@ -14,5 +14,5 @@ export const getAuthToken = (): string => {
 
 export const clearAuthToken = () => {
   Cookies.remove('jwt');
-  axios.defaults.headers.common['Authorization'] = '';
+  customAxios().defaults.headers.common.Authorization = '';
 };

@@ -60,14 +60,15 @@ const FloatingButton: FunctionComponent<FloatingButtonProps> = ({ position = 'bo
         <AnimatePresence exitBeforeEnter>
           {active && (
             <>
-              <FloatingSmallButtonWrapper
-                custom={0}
-                iconName="plus"
-                variants={FloatingButtonVariant}
-                onClick={handlePostCreate}
-              >
-                글쓰기
-              </FloatingSmallButtonWrapper>
+              <Link href="/review">
+                <FloatingSmallButtonWrapper
+                  custom={9}
+                  iconName="profile-selected"
+                  variants={FloatingButtonVariant}
+                >
+                  리뷰
+                </FloatingSmallButtonWrapper>
+              </Link>
               <Link href="/album">
                 <FloatingSmallButtonWrapper
                   custom={4.5}
@@ -77,6 +78,14 @@ const FloatingButton: FunctionComponent<FloatingButtonProps> = ({ position = 'bo
                   앨범
                 </FloatingSmallButtonWrapper>
               </Link>
+              <FloatingSmallButtonWrapper
+                custom={0}
+                iconName="plus"
+                variants={FloatingButtonVariant}
+                onClick={handlePostCreate}
+              >
+                글쓰기
+              </FloatingSmallButtonWrapper>
             </>
           )}
         </AnimatePresence>

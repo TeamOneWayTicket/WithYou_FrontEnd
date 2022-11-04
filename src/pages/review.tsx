@@ -1,5 +1,5 @@
 import { PageSEO } from '@src/components/analytics/SEO';
-import { withAuthSSR } from '@src/components/hoc';
+import { withAuthCSR, withAuthSSR } from '@src/components/hoc';
 import { PageLayout } from '@src/components/layout';
 import { CustomDatePicker } from '@src/components/ui/atom';
 import { InfiniteSlider } from '@src/components/ui/molecule';
@@ -16,9 +16,9 @@ const ReviewPage = () => {
   // and show it in the slider
 
   return (
-    <PageLayout showNavigation>
+    <PageLayout fixedHeight showNavigation>
       <PageSEO title={siteMetadata.title + ' - Review'} description={'육아 되돌아보기'} />
-      <div className="text-center h-96">
+      <div className="text-center h-full">
         <CustomDatePicker
           onChange={(date) => {
             setStartDate(date);
@@ -30,4 +30,4 @@ const ReviewPage = () => {
   );
 };
 
-export default ReviewPage;
+export default withAuthCSR(ReviewPage);

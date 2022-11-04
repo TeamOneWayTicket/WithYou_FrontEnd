@@ -12,14 +12,12 @@ export default function useValidateUser() {
         const {
           user: { isNew },
         } = await apiValidate();
-        // if (isNew) {
-        //   router.push('/enroll');
-        // } else {
-        //   // need prev path for redirect
-        //   // router.push('/');
-        // }
+        if (isNew) {
+          router.push('/enroll');
+        } else {
+          router.push('/');
+        }
       } catch (error) {
-        //  need to show toast or alert or anything to user
         clearAuthToken();
       }
     }

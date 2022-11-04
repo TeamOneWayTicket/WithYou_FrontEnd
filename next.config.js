@@ -18,7 +18,7 @@ const nextConfig = {
     KAKAO_REDIRECT_URL: process.env.KAKAO_REDIRECT_URL,
   },
   images: {
-    domains: ['unsplash.com'],
+    domains: ['unsplash.com', 'resource.with-you.io'],
     deviceSizes: [640, 768, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [],
   },

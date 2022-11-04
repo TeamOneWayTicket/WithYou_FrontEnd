@@ -12,7 +12,7 @@ export default class MyDocument extends Document {
           <link
             rel="stylesheet"
             as="style"
-            href="https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.5/static/pretendard-dynamic-subset.css"
+            href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-dynamic-subset.css"
           />
           <link rel="icon" href="/favicon.ico" />
           <meta charSet="utf-8" />

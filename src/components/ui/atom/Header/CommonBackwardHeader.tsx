@@ -12,7 +12,7 @@ const PostsCommonHeader: FC<{
     <div className="relative w-full flex justify-between items-center">
       <IconButton className="text-gray-400" name={'leftArrow'} size={20} onClick={onBack} />
       {title && <p className="text-black">{title}</p>}
-      <div />
+      <div className="w-4" />
       {children}
     </div>
   );

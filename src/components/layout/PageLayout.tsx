@@ -62,10 +62,10 @@ const PageLayout: FC<{
       <main
         ref={mainRef}
         className={cx(
+          className,
           'relative m-center w-full pt-gb-header pb-bt-nav',
           fullWidth ? null : `max-w-mobile-app px-side-padding`,
-          fixedHeight ? 'overflow-hidden h-screen' : 'min-h-screen',
-          className
+          fixedHeight ? 'overflow-hidden h-screen' : 'min-h-screen'
         )}
       >
         {children}

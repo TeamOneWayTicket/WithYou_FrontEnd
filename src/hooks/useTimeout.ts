@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
-export default function UseTimeout(callback: () => void, delay: number) {
+export default function useTimeout(callback: () => void, delay: number) {
+  const memoCallback = useCallback(callback, [callback]);
+
   useEffect(() => {
-    const timeout = setTimeout(callback, delay);
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []);
+    const timeout = setTimeout(memoCallback, delay);
+
+    return () => clearTimeout(timeout);
+  }, [delay, memoCallback]);
 }

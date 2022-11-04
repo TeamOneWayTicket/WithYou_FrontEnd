@@ -1,7 +1,10 @@
 import ImageWithEditButton from '@src/components/ui/organism/ImageWithEditButton';
-import React, { useEffect, useState } from 'react';
+import { CommonUserAuthInfoType } from '@src/core/types/auth-type';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
-const ProfileIntroSection = () => {
+const ProfileIntroSection: FunctionComponent<{
+  userInfo: CommonUserAuthInfoType['user'];
+}> = ({ userInfo: { thumbnail, nickname, role } }) => {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
 
   useEffect(() => {
@@ -15,11 +18,11 @@ const ProfileIntroSection = () => {
         imageFiles={imageFiles}
         setImageFiles={setImageFiles}
         inputId="modify_profile"
-        src={'/static/sample_profile.png'}
+        src={thumbnail === '' ? '/static/default_profile.svg' : thumbnail}
       />
       <div className="text-center space-y-0.5">
-        <h1>힘찬 엄마</h1>
-        <p className="text-wy-blue-500">엄마</p>
+        <h1>{nickname}</h1>
+        <p className="text-wy-blue-500">{role}</p>
       </div>
     </div>
   );

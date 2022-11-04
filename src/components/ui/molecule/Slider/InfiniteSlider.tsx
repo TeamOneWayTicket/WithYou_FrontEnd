@@ -10,7 +10,6 @@ const InfiniteSlider: FunctionComponent<{
   enableDot?: boolean;
 }> = ({ enableInfinite, enableDot }) => {
   const controls = useAnimation();
-  const infiniteSliderRef = useRef<HTMLDivElement>(null);
   const sliderItemnRefs = useRef<HTMLDivElement[]>([]);
   const [selectedPage, setSelectedPage] = useState(0);
 
@@ -36,7 +35,7 @@ const InfiniteSlider: FunctionComponent<{
 
   return (
     <AnimatePresence initial={false} exitBeforeEnter>
-      <motion.div className="cursor-grab select-none overflow-visible flex justify-center">
+      <motion.div className="h-full cursor-grab select-none overflow-visible flex justify-center">
         <motion.div
           variants={{
             next: {
@@ -45,7 +44,6 @@ const InfiniteSlider: FunctionComponent<{
           }}
           transition={{ duration: 0.5, stiffness: 100 }}
           animate={controls}
-          ref={infiniteSliderRef}
           drag="x"
           dragConstraints={{
             left: -sliderItemnRefs.current[0]?.offsetWidth * selectedPage,
@@ -61,7 +59,7 @@ const InfiniteSlider: FunctionComponent<{
               paginate(-1);
             }
           }}
-          className="flex w-5/6"
+          className="flex w-5/6 h-full"
         >
           {Array(numOfItems)
             .fill(0)

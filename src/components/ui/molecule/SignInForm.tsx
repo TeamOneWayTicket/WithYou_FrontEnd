@@ -1,13 +1,24 @@
-import { AppleLoginButton, GoogleLoginButton, KakaoLoginButton } from '@src/components/ui/atom';
+import {
+  AppleLoginButton,
+  Button,
+  EmailLoginButton,
+  GoogleLoginButton,
+  KakaoLoginButton,
+} from '@src/components/ui/atom';
 import { SocialAuthHookType } from '@src/core/types/auth-type';
-import React, { FC, memo } from 'react';
+import React, { FunctionComponent, memo } from 'react';
 
-const SignInForm: FC<SocialAuthHookType> = ({ ...props }) => {
+interface SignInFormProps extends SocialAuthHookType {
+  onEmailLogin: () => void;
+}
+
+const SignInForm: FunctionComponent<SignInFormProps> = ({ onEmailLogin, ...props }) => {
   return (
     <div className="w-full">
       <div className="flex flex-col justify-center items-center">
-        <AppleLoginButton {...props} />
-        <GoogleLoginButton {...props} />
+        <EmailLoginButton onClick={onEmailLogin} />
+        {/* <AppleLoginButton {...props} /> */}
+        {/* <GoogleLoginButton {...props} /> */}
         <KakaoLoginButton {...props} />
       </div>
     </div>

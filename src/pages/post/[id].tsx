@@ -1,4 +1,4 @@
-import { withAuthSSR } from '@src/components/hoc';
+import { withAuthCSR, withAuthSSR } from '@src/components/hoc';
 import { PageLayout } from '@src/components/layout';
 import PostCommentTemplate from '@src/components/template/PostPage/PostCommentTemplate';
 import CommonBackwardHeader from '@src/components/ui/atom/Header/CommonBackwardHeader';
@@ -32,4 +32,4 @@ const PostPage = () => {
   );
 };
 
-export default PostPage;
+export default withAuthCSR(PostPage);

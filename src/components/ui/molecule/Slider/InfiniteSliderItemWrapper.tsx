@@ -13,7 +13,7 @@ const InfiniteSliderItemWrapper: ForwardRefRenderFunction<HTMLDivElement, Props>
   return (
     <motion.div
       ref={ref}
-      className="relative h-[520px] min-w-full"
+      className="relative h-[calc(100%-100px)] min-w-full"
       initial={{ opacity: 0 }}
       animate={{
         opacity: 1,

@@ -1,5 +1,5 @@
 import { PageSEO } from '@src/components/analytics/SEO';
-import { withAuthSSR } from '@src/components/hoc';
+import { withAuthCSR, withAuthSSR } from '@src/components/hoc';
 import { PageLayout } from '@src/components/layout';
 import AlbumCommonHeader from '@src/components/template/AlbumPage/AlbumCommonHeader';
 import siteMetadata from '@src/core/config/siteMetadata';
@@ -31,4 +31,4 @@ const AlbumPage: NextPage = () => {
   );
 };
 
-export default AlbumPage;
+export default withAuthCSR(AlbumPage);
