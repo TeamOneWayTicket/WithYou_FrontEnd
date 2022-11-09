@@ -1,22 +1,25 @@
 import MainPostCardWrapper from '@src/components/ui/molecule/PostCard/Wrapper/MainPostCardWrapper';
 import PostImageWrapper from '@src/components/ui/molecule/PostCard/Wrapper/PostImageWrapper';
-import { PostInfoType } from '@src/core/types/posts-type';
+import { ApiCommonDiaryProps } from '@src/core/api/interface/api-diary-interface';
 import Link from 'next/link';
-import React, { FC } from 'react';
+import { FunctionComponent } from 'react';
 
-const MainPostCard: FC<{
-  postInfo: PostInfoType;
+const MainPostCard: FunctionComponent<{
+  postInfo: ApiCommonDiaryProps;
 }> = ({ postInfo }) => {
-  const { text, images } = postInfo;
+  const {
+    diary: { id, content, media },
+  } = postInfo;
+
   return (
     <MainPostCardWrapper postInfo={postInfo}>
-      <Link href={'/post/1'}>
+      <Link href={`/post/${id}`}>
         <a className="block">
-          <PostImageWrapper images={images} />
+          <PostImageWrapper media={media} />
         </a>
       </Link>
       <div className="w-full">
-        <p className="hide-text-overflow">{text}</p>
+        <p className="hide-text-overflow">{content}</p>
         <div className="text-link-700">..더보기</div>
       </div>
     </MainPostCardWrapper>

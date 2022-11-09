@@ -1,23 +1,25 @@
 import { ImageWrapper } from '@src/components/ui/atom';
 import MainPostCardWrapper from '@src/components/ui/molecule/PostCard/Wrapper/MainPostCardWrapper';
-import { PostInfoType } from '@src/core/types/posts-type';
-import React, { FC } from 'react';
+import { ApiCreateDiary } from '@src/core/api/interface/api-diary-interface';
+import React, { FunctionComponent } from 'react';
 
-const DetailPostCard: FC<{
-  postInfo: PostInfoType;
+const DetailPostCard: FunctionComponent<{
+  postInfo: ApiCreateDiary;
 }> = ({ postInfo }) => {
-  const { text, images } = postInfo;
+  const {
+    diary: { content, media },
+  } = postInfo;
   return (
     <MainPostCardWrapper postInfo={postInfo}>
       <div className="w-full">
-        <p className="hide-text-overflow">{text}</p>
+        <p className="hide-text-overflow">{content}</p>
       </div>
-      {images &&
-        images.map((image, index) => {
+      {media &&
+        media.map((mediaInfo, index) => {
           return (
             <div key={`detail-post-image-${index}`} className="relative w-full h-48">
               <ImageWrapper
-                src={image}
+                src={mediaInfo.fileNameInS3}
                 className="rounded-xl pointer-events-none"
                 layout="fill"
                 objectFit="cover"

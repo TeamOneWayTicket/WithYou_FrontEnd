@@ -8,7 +8,7 @@ const ReviewCard = () => {
       <a>
         <div className="relative w-full h-30">
           <ImageWrapper
-            src="/static/sample_review.png"
+            src="/static/sample_family_01.png"
             bgFilter="bg-black/20"
             layout="fill"
             objectFit="cover"

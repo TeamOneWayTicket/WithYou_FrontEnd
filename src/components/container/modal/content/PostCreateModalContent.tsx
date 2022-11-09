@@ -1,9 +1,10 @@
 import { closeModal } from '@src/atom/modal';
-import { addPosts } from '@src/atom/posts';
+import { addPostsReverse } from '@src/atom/posts';
 import { Button, IconButton } from '@src/components/ui/atom';
 import DropZone from '@src/components/ui/organism/Dropzone';
 import { apiCreateDiary } from '@src/core/api/apiDiary';
 import { ModalContentType } from '@src/core/types/modal-type';
+import { ToastError } from '@src/utils/toast';
 import { twcDivide } from '@src/utils/twcUtil';
 import cx from 'classnames';
 import React, { FunctionComponent, useState } from 'react';
@@ -30,30 +31,29 @@ const PostCreateModalContentHeader: FunctionComponent<{
 };
 
 const PostCreateModalContent: FunctionComponent<ModalContentType> = ({}) => {
+  const addPostsCB = useSetRecoilState(addPostsReverse);
   const closeModalCB = useSetRecoilState(closeModal);
   const [imageFiles, setImageFiles] = useState([]);
-  const [description, setDescription] = useState('');
-  const addPostsCB = useSetRecoilState(addPosts);
+  const [content, setContent] = useState('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (imageFiles.length === 0) {
       alert('이미지를 업로드해주세요');
       return;
     }
-    const images = imageFiles.map((file) => URL.createObjectURL(file));
-    // Todo call apiCreateDiary
-    addPostsCB({
-      posts: [
-        {
-          author: '힘찬엄마',
-          author_profile_image: '/static/sample_profile.png',
-          text: description,
-          images: images,
-        },
-      ],
-    });
-    closeModalCB();
+    try {
+      const diaryElem = await apiCreateDiary({
+        content,
+        imageFiles,
+      });
+      addPostsCB({
+        posts: [diaryElem],
+      });
+      closeModalCB();
+    } catch (e) {
+      ToastError('포스트를 생성할 수 없습니다. 다시 시도해주세요.');
+    }
   };
 
   return (
@@ -69,9 +69,9 @@ const PostCreateModalContent: FunctionComponent<ModalContentType> = ({}) => {
               className="w-full h-20 border-none outline-none resize-none bg-white"
               placeholder="이 사진에 대해 설명해주세요"
               maxLength={200}
-              value={description}
+              value={content}
               onChange={(e) => {
-                setDescription(e.target.value);
+                setContent(e.target.value);
               }}
             />
           </div>

@@ -1,23 +1,27 @@
-import { ImageWrapper } from '@src/components/ui/atom';
+import { ImageWrapper, IntersectWrapper } from '@src/components/ui/atom';
+import DiariesSectionWrapper from '@src/components/ui/molecule/DiariesSectionWrapper';
 import ProfilePostCard from '@src/components/ui/molecule/PostCard/ProfilePostCard';
-import PostsSectionWrapper from '@src/components/ui/molecule/PostsSectionWrapper';
-import { PostsInfoType } from '@src/core/types/posts-type';
+import { ApiCommonDiaryProps } from '@src/core/api/interface/api-diary-interface';
 import React, { Fragment, FunctionComponent } from 'react';
 
-const ProfilePostsSection: FunctionComponent<PostsInfoType> = ({ posts }) => {
+const ProfilePostsSection: FunctionComponent<{
+  diaries: ApiCommonDiaryProps[];
+  onScrollReachBottom: () => void;
+}> = ({ diaries, onScrollReachBottom }) => {
   return (
     <Fragment>
-      {posts.length > 0 ? (
+      {diaries.length > 0 ? (
         <div className="bg-gray-50">
-          <PostsSectionWrapper>
-            {posts.map((post, index) => {
+          <DiariesSectionWrapper>
+            {diaries.map((diary, index) => {
               return (
                 <Fragment key={`profile-post-${index}`}>
-                  <ProfilePostCard postInfo={post} />
+                  <ProfilePostCard postInfo={diary} />
                 </Fragment>
               );
             })}
-          </PostsSectionWrapper>
+            <IntersectWrapper keepObserve onIntersect={onScrollReachBottom} />
+          </DiariesSectionWrapper>
         </div>
       ) : (
         <div className="w-full h-[calc(100%-24rem)] space-y-2 flex flex-col justify-center items-center text-center">

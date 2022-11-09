@@ -1,4 +1,5 @@
 import { ImageWrapper } from '@src/components/ui/atom';
+import { needDefaultImage } from '@src/utils/imageUtil';
 import React, { FunctionComponent } from 'react';
 
 export type CommonProfileProps = {
@@ -15,7 +16,7 @@ const PostCardHeader: FunctionComponent<CommonProfileProps> = ({
   return (
     <div className="flex space-x-2">
       <div className="relative w-10 h-10 rounded-full">
-        <ImageWrapper src={profileImage} layout="fill" />
+        <ImageWrapper src={needDefaultImage(profileImage)} layout="fill" />
       </div>
       <div className="flex flex-col">
         <h4>{profileName}</h4>

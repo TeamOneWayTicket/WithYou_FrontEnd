@@ -10,14 +10,14 @@ type CustomImageType = {
  * @example 'bg-gradient-to-r from-gray-500/10 to-gray-500/50'
  */
 const Image = ({ bgFilter, className, ...rest }: ImageProps & CustomImageType) => (
-  <div className="relative w-full h-full">
+  <>
     <div
       className={
         bgFilter ? classNames('absolute inset-0 w-full h-full z-[1]', className, bgFilter) : ''
       }
     />
     <NextImage className={className} {...rest} />
-  </div>
+  </>
 );
 
 export default Image;

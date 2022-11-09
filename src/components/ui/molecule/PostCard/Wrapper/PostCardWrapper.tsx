@@ -1,9 +1,9 @@
-import { PostInfoType } from '@src/core/types/posts-type';
+import { ApiCommonDiaryProps } from '@src/core/api/interface/api-diary-interface';
 import cx from 'classnames';
 import React, { FC } from 'react';
 
 export type CommonPostCardWrapperProps = {
-  postInfo: PostInfoType;
+  postInfo: ApiCommonDiaryProps;
   children: React.ReactNode;
 };
 

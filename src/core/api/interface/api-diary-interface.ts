@@ -3,18 +3,41 @@ export interface IDiaryProps {
   familyId: number;
   authorId: number;
   content: string;
+  type: string;
+  createdAt: string;
+  media: IDiaryMediaProps[];
+}
+
+export interface IAuthorProps {
+  roles: string[];
+  id: number;
+  familyId: number;
+  nickname: string;
+  vendor: string;
+  thumbnail: string;
+  gender: string;
+  role: string;
+}
+
+export interface IDiaryMediaProps {
+  id: number;
+  diaryId: number;
+  order: number;
+  fileNameInS3: string;
   createdAt: string;
 }
 
-export type ApiCreateDiary = IDiaryProps;
-export type ApiUpdateDiary = IDiaryProps;
-
-export interface ApiGetDiariesInfinite {
-  diaries: IDiaryProps[];
-  nextId: number;
-  isLast: boolean;
+export interface ApiCommonDiaryProps {
+  diary: IDiaryProps;
+  author: IAuthorProps;
+  commentCount: number;
 }
 
-export interface ApiGetAllDiaries {
-  diaries: IDiaryProps[];
+export type ApiCreateDiary = ApiCommonDiaryProps;
+export type ApiUpdateDiary = ApiCommonDiaryProps;
+
+export interface ApiGetDiariesInfinite {
+  diaries: ApiCommonDiaryProps[];
+  nextId: number | null;
+  isLast: boolean;
 }

@@ -3,22 +3,27 @@ import PostCardHeader from '@src/components/ui/atom/Header/PostCardHeader';
 import PostCardWrapper, {
   CommonPostCardWrapperProps,
 } from '@src/components/ui/molecule/PostCard/Wrapper/PostCardWrapper';
-import { FunctionComponent } from 'react';
+import { FC } from 'react';
 
-const MainPostCardWrapper: FunctionComponent<CommonPostCardWrapperProps> = ({
-  postInfo,
-  children,
-}) => {
-  const { author, author_profile_image, images, text } = postInfo;
+const MainPostCardWrapper: FC<CommonPostCardWrapperProps> = ({ postInfo, children }) => {
+  const {
+    diary: { createdAt },
+    author: { thumbnail, nickname },
+    commentCount,
+  } = postInfo;
 
   return (
     <PostCardWrapper>
-      <PostCardHeader profileImage={author_profile_image} profileName={author} timeStamp="오늘" />
+      <PostCardHeader
+        profileImage={thumbnail}
+        profileName={nickname}
+        timeStamp={createdAt.slice(0, 7)}
+      />
       {children}
       <div className="flex space-x-2 py-2">
         <div className="flex text-gray-500">
           <Icon name="comment" />
-          <span>댓글 0개</span>
+          <span>댓글 {commentCount}개</span>
         </div>
         <div className="flex text-gray-500">
           <Icon name="share" />

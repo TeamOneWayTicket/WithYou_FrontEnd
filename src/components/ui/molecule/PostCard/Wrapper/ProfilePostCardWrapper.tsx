@@ -7,13 +7,15 @@ const ProfilePostCardWrapper: FunctionComponent<CommonPostCardWrapperProps> = ({
   postInfo,
   children,
 }) => {
-  const { text } = postInfo;
+  const {
+    diary: { content },
+  } = postInfo;
 
   return (
     <PostCardWrapper>
       {children}
       <div className="w-full">
-        <p className="hide-text-overflow">{text}</p>
+        <p className="hide-text-overflow">{content}</p>
         <div className="text-link-700">..더보기</div>
       </div>
       <div className="w-full">

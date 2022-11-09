@@ -1,18 +1,20 @@
 import PostImageWrapper from '@src/components/ui/molecule/PostCard/Wrapper/PostImageWrapper';
 import ProfilePostCardWrapper from '@src/components/ui/molecule/PostCard/Wrapper/ProfilePostCardWrapper';
-import { PostInfoType } from '@src/core/types/posts-type';
+import { ApiCreateDiary } from '@src/core/api/interface/api-diary-interface';
 import Link from 'next/link';
-import React, { FC } from 'react';
+import React, { FunctionComponent } from 'react';
 
-const ProfilePostCard: FC<{
-  postInfo: PostInfoType;
+const ProfilePostCard: FunctionComponent<{
+  postInfo: ApiCreateDiary;
 }> = ({ postInfo }) => {
-  const { text, images } = postInfo;
+  const {
+    diary: { media },
+  } = postInfo;
   return (
     <ProfilePostCardWrapper postInfo={postInfo}>
       <Link href={'/post/1'}>
         <a className="block">
-          <PostImageWrapper images={images} />
+          <PostImageWrapper media={media} />
         </a>
       </Link>
     </ProfilePostCardWrapper>

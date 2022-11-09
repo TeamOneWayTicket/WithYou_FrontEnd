@@ -12,6 +12,7 @@ export { default as SelectBox } from './Input/SelectBox';
 // wrapper components
 export { default as CustomDatePicker } from './Calendar/CustomDatePicker';
 export { default as ImageWrapper } from './Wrapper/ImageWrapper';
+export { default as IntersectWrapper } from './Wrapper/IntersectWrapper';
 
 // Editor
 export { default as NoteEditor } from './NoteEditor';

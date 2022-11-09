@@ -8,8 +8,7 @@ const ProfileIntroSection: FunctionComponent<{
   const [imageFiles, setImageFiles] = useState<File[]>([]);
 
   useEffect(() => {
-    //Todo: call profile change api on every imageFiles change
-    // check if imageFile is same with current profile image
+    (async () => {})();
   }, [imageFiles]);
 
   return (
