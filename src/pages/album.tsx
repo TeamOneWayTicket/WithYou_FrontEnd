@@ -21,7 +21,6 @@ interface AlbumPageProps {
 
 export const getServerSideProps = withAuthSSR(async () => {
   const photoInfos = await apiGetFamilyPhotos();
-  console.log(photoInfos);
 
   const ret = photoInfos.media.map((photoInfo) => {
     const rand = getRandomImageRadio();

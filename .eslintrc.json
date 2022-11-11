@@ -40,6 +40,7 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "import/no-unresolved": 0,
+    "no-console": "warn",
     "react/jsx-filename-extension": [
       2,
       {

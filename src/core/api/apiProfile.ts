@@ -1,4 +1,4 @@
-import { ToastError, ToastWarn } from '@src/utils/toast';
+import { ToastError, ToastSuccess, ToastWarn } from '@src/utils/toast';
 
 import { customAxios } from '../lib/customAxios';
 import { CommonApiError, isAxiosError } from '../types/axios-error';
@@ -10,6 +10,32 @@ interface UploadProfileInfoRequest {
   nickname: string;
   code: string | null;
 }
+
+interface UpdateProfileImageRequest {
+  s3Url: string;
+}
+
+export const apiUpdateThumbnail = async (imageFile: File) => {
+  try {
+    if (!imageFile || imageFile === null) {
+      throw new Error('이미지 파일이 없습니다.');
+    }
+    const { fileName } = await apiGetPresignedUrl(imageFile);
+    await customAxios().post<UpdateProfileImageRequest>('/user/thumbnail/upload', {
+      fileName,
+    });
+    ToastSuccess('프로필 이미지가 변경되었습니다.');
+  } catch (err) {
+    if (isAxiosError<CommonApiError>(err)) {
+      const { message, error } = err.response.data;
+      ToastWarn(message);
+      throw new Error(error);
+    } else {
+      ToastError('프로필 이미지 업로드에 실패했습니다.');
+      throw err;
+    }
+  }
+};
 
 export const apiUploadProfileInfo = async ({
   imageFile,
@@ -39,7 +65,7 @@ export const apiUploadProfileInfo = async ({
       ToastWarn(message);
       throw new Error(error);
     } else {
-      ToastError('error occured during upload profile info process');
+      ToastError('프로필 등록에 실패했습니다. 다시 시도해주세요.');
       throw err;
     }
   }

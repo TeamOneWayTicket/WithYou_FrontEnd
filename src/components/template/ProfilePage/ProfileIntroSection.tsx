@@ -1,4 +1,5 @@
 import ImageWithEditButton from '@src/components/ui/organism/ImageWithEditButton';
+import { apiUpdateThumbnail } from '@src/core/api/apiProfile';
 import { CommonUserAuthInfoType } from '@src/core/types/auth-type';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
@@ -8,7 +9,12 @@ const ProfileIntroSection: FunctionComponent<{
   const [imageFiles, setImageFiles] = useState<File[]>([]);
 
   useEffect(() => {
-    (async () => {})();
+    (async () => {
+      if (imageFiles.length === 0) {
+        return;
+      }
+      await apiUpdateThumbnail(imageFiles[0]);
+    })();
   }, [imageFiles]);
 
   return (
