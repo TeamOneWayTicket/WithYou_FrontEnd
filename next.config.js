@@ -7,7 +7,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const compressionPlugin = require('compression-webpack-plugin');
 
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   compress: true,
   sassOptions: {
     includePaths: [path.join(__dirname, './src/styles')],

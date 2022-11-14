@@ -1,5 +1,5 @@
 import { closeModal } from '@src/atom/modal';
-import { addPostsReverse } from '@src/atom/posts';
+import { addMyDiaryReverse } from '@src/atom/myDiary';
 import { Button, IconButton } from '@src/components/ui/atom';
 import DropZone from '@src/components/ui/organism/Dropzone';
 import { apiCreateDiary } from '@src/core/api/apiDiary';
@@ -31,7 +31,7 @@ const PostCreateModalContentHeader: FunctionComponent<{
 };
 
 const PostCreateModalContent: FunctionComponent<ModalContentType> = ({}) => {
-  const addPostsCB = useSetRecoilState(addPostsReverse);
+  const addMyDiariesCB = useSetRecoilState(addMyDiaryReverse);
   const closeModalCB = useSetRecoilState(closeModal);
   const [imageFiles, setImageFiles] = useState([]);
   const [content, setContent] = useState('');
@@ -47,8 +47,11 @@ const PostCreateModalContent: FunctionComponent<ModalContentType> = ({}) => {
         content,
         imageFiles,
       });
-      addPostsCB({
-        posts: [diaryElem],
+      addMyDiariesCB((prev) => {
+        return {
+          ...prev,
+          diaries: [diaryElem],
+        };
       });
       closeModalCB();
     } catch (e) {

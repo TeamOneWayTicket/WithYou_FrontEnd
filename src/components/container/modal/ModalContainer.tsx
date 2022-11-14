@@ -1,8 +1,8 @@
 import { closeModal, modalStateAtom } from '@src/atom/modal';
 import {
+  DiaryCreateModalContent,
   EmailSignInModalContent,
   EmailSignUpModalContent,
-  PostCreateModalContent,
 } from '@src/components/container/modal/content';
 import { ModalLayout } from '@src/components/layout';
 import Portal from '@src/components/ui/atom/Portal';
@@ -12,7 +12,7 @@ import React, { FunctionComponent } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 const _selectModal: { [key in ModalType]: FunctionComponent<ModalContentType> } = {
-  POSTCREATE: PostCreateModalContent,
+  DIARYCREATE: DiaryCreateModalContent,
   EMAILSIGNIN: EmailSignInModalContent,
   EMAILSIGNUP: EmailSignUpModalContent,
 };

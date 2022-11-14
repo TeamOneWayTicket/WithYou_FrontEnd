@@ -23,7 +23,7 @@ const openPostCreateModal = selector<Pick<ModalInfoType, 'fullScreen'>>({
       set(modalStateAtom, defaultState);
     } else {
       set(modalStateAtom, {
-        type: 'POSTCREATE',
+        type: 'DIARYCREATE',
         title: '게시글 작성',
         fullScreen: newValue.fullScreen,
         option: null,

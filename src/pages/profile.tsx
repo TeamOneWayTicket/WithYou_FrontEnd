@@ -2,11 +2,11 @@ import { addFamilyDiaries } from '@src/atom/familyDiary';
 import { PageSEO } from '@src/components/analytics/SEO';
 import { withAuthCSR, withAuthSSR } from '@src/components/hoc';
 import { PageLayout } from '@src/components/layout';
+import ProfileDiariesSection from '@src/components/template/ProfilePage/ProfileDiariesSection';
 import ProfileIntroSection from '@src/components/template/ProfilePage/ProfileIntroSection';
-import ProfilePostsSection from '@src/components/template/ProfilePage/ProfilePostsSection';
 import { FullWidthOverflowScrollWrapper, IconButton } from '@src/components/ui/atom';
 import { apiGetMyDiariesInfinite } from '@src/core/api/apiDiary';
-import { ApiGetDiariesInfinite } from '@src/core/api/interface/api-diary-interface';
+import { ApiGetDiariesInfinite } from '@src/core/api/types/api-diary-interface';
 import siteMetadata from '@src/core/config/siteMetadata';
 import { CommonUserAuthInfoType } from '@src/core/types/auth-type';
 import { NextPage } from 'next';
@@ -33,32 +33,41 @@ export const getServerSideProps = withAuthSSR(async (ctx) => {
 });
 
 const ProfilePage: NextPage<ProfilePageProps> = ({ user, initialDiaryInfo }) => {
-  const isInit = useRef(false);
-  const nextId = useRef(initialDiaryInfo.nextId);
+  const [familyDiariesInfo, setFamilyDiariesInfo] = useRecoilState(addFamilyDiaries);
   const isLast = useRef(initialDiaryInfo.isLast);
-  const [familyDiaries, setFamilyDiaries] = useRecoilState(addFamilyDiaries);
+  const nextId = useRef(initialDiaryInfo.nextId);
 
   useEffect(() => {
-    if (!isInit.current && familyDiaries.diaries.length === 0) {
-      setFamilyDiaries({
+    if (!familyDiariesInfo.isInit) {
+      setFamilyDiariesInfo({
+        isInit: true,
+        isLast: initialDiaryInfo.isLast,
+        nextId: initialDiaryInfo.nextId,
         diaries: initialDiaryInfo.diaries,
       });
-      isInit.current = true;
+    } else {
+      isLast.current = familyDiariesInfo.isLast;
+      nextId.current = familyDiariesInfo.nextId;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleLoadMore = useCallback(async () => {
     if (isLast.current) return;
-    const diaryInfo = await apiGetMyDiariesInfinite({
+
+    const nextDiaryRes = await apiGetMyDiariesInfinite({
       nextId: nextId.current,
       take: 5,
     });
-    nextId.current = diaryInfo.nextId;
-    isLast.current = diaryInfo.isLast;
-    setFamilyDiaries({
-      diaries: diaryInfo.diaries,
+    setFamilyDiariesInfo({
+      isInit: true,
+      isLast: nextDiaryRes.isLast,
+      nextId: nextDiaryRes.nextId,
+      diaries: nextDiaryRes.diaries,
     });
-  }, [setFamilyDiaries]);
+    isLast.current = nextDiaryRes.isLast;
+    nextId.current = nextDiaryRes.nextId;
+  }, [setFamilyDiariesInfo]);
 
   return (
     <PageLayout
@@ -75,7 +84,10 @@ const ProfilePage: NextPage<ProfilePageProps> = ({ user, initialDiaryInfo }) => 
       <PageSEO title={siteMetadata.title + ' Profile'} description={'profile page'} />
       <FullWidthOverflowScrollWrapper>
         <ProfileIntroSection userInfo={user} />
-        <ProfilePostsSection diaries={familyDiaries.diaries} onScrollReachBottom={handleLoadMore} />
+        <ProfileDiariesSection
+          diaries={familyDiariesInfo.diaries}
+          onScrollReachBottom={handleLoadMore}
+        />
       </FullWidthOverflowScrollWrapper>
     </PageLayout>
   );

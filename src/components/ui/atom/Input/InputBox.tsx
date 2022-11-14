@@ -1,6 +1,22 @@
 import { inputBoxSizes, inputBoxStyles } from '@src/utils/constants';
 import cx from 'classnames';
-import React, { ChangeEventHandler, FunctionComponent, memo } from 'react';
+import React, { FunctionComponent, InputHTMLAttributes, memo } from 'react';
+
+interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'style'> {
+  disabled?: boolean;
+  type: 'id' | 'email' | 'password';
+  name: string;
+  label: string;
+  value: string | number;
+  size?: inputBoxSizes;
+  style?: inputBoxStyles;
+  placeholder?: string;
+  readOnly?: boolean;
+  error?: boolean;
+  errorMessage?: string;
+  fullWidth?: boolean;
+  className?: string;
+}
 
 const sizeSelector: { [keys in inputBoxSizes] } = {
   xsmall: 'h-6 text-xs',
@@ -16,22 +32,7 @@ const styleSelector: { [keys in inputBoxStyles] } = {
   transparent: 'bg-transparent text-black',
 };
 
-const InputBox: FunctionComponent<{
-  disabled?: boolean;
-  type: 'id' | 'email' | 'password';
-  name: string;
-  label: string;
-  value: string | number;
-  size?: inputBoxSizes;
-  style?: inputBoxStyles;
-  placeholder?: string;
-  readOnly?: boolean;
-  error?: boolean;
-  errorMessage?: string;
-  fullWidth?: boolean;
-  classNames?: string;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-}> = ({
+const InputBox: FunctionComponent<Props> = ({
   disabled = false,
   name,
   label,
@@ -40,7 +41,7 @@ const InputBox: FunctionComponent<{
   error,
   errorMessage = 'wrong input',
   fullWidth = false,
-  classNames,
+  className,
   ...props
 }) => {
   return (
@@ -61,7 +62,7 @@ const InputBox: FunctionComponent<{
             error ? 'border-red-500' : '',
             'focus:outline-none',
             'disabled:bg-gray-500',
-            classNames
+            className
           )}
           {...props}
         />

@@ -1,15 +1,16 @@
-import { ApiCommonDiaryProps } from '@src/core/api/interface/api-diary-interface';
+import { produce } from 'immer';
 import { atom, DefaultValue, selector } from 'recoil';
 
-interface DiaryAtom {
-  diaries: ApiCommonDiaryProps[];
-}
+import { DiaryAtom } from '../core/types/diary-type';
 
 const defaultState: DiaryAtom = {
+  isInit: false,
+  isLast: null,
+  nextId: null,
   diaries: [],
 };
 
-const diariesStateAtom = atom<DiaryAtom>({
+const familyDiariesStateAtom = atom<DiaryAtom>({
   key: 'diariesStateAtom',
   default: defaultState,
 });
@@ -17,18 +18,23 @@ const diariesStateAtom = atom<DiaryAtom>({
 const addFamilyDiaries = selector<DiaryAtom>({
   key: 'diariesStateAtom/addDiaries',
   get: ({ get }) => {
-    return get(diariesStateAtom);
+    return get(familyDiariesStateAtom);
   },
   set: ({ get, set }, newValue) => {
     if (newValue instanceof DefaultValue) {
-      set(diariesStateAtom, defaultState);
+      set(familyDiariesStateAtom, defaultState);
     } else {
-      const nextDiaries = [...get(diariesStateAtom).diaries, ...newValue.diaries];
-      set(diariesStateAtom, {
+      const nextDiaries = produce(get(familyDiariesStateAtom).diaries, (draft) => {
+        draft.push(...newValue.diaries);
+      });
+      set(familyDiariesStateAtom, {
+        isInit: true,
+        isLast: newValue.isLast,
+        nextId: newValue.nextId,
         diaries: nextDiaries,
       });
     }
   },
 });
 
-export { addFamilyDiaries, diariesStateAtom };
+export { addFamilyDiaries, familyDiariesStateAtom };

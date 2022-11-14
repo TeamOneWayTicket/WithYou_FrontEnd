@@ -34,7 +34,6 @@ const SelectBox: FunctionComponent<SelectBoxShape> = ({
   defaultValue,
   optionList,
   onSelect,
-
   classNames,
 }) => {
   return (

@@ -1,2 +1,2 @@
-export const routerPath = ['/', '/camera', '/posts', '/album', '/profile'];
+export const routerPath = ['/', '/camera', '/diary', '/album', '/profile'];
 export type RouterPath = typeof routerPath[number];

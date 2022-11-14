@@ -1,6 +1,5 @@
 export { default as useBrowserBackward } from './useBrowserBackward';
 export { default as useDimension } from './useDimension';
-export { default as useInfiniteScroll } from './useInfiniteScroll';
 export { default as useLazyScript } from './useLazyScript';
 export { default as usePreviewImage } from './usePreviewImage';
 export { default as useTimeout } from './useTimeout';

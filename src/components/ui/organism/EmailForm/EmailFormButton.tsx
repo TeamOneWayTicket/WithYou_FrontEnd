@@ -8,10 +8,10 @@ const SignupStartSection: FunctionComponent<{
 }> = ({ submitButtonText, notFoundText, onNotFoundClick }) => {
   return (
     <div className="flex flex-col w-full items-start space-y-4">
-      <Button styles="wy-blue" type="submit" fullWidth>
+      <Button fullWidth styles="wy-blue" type="submit">
         <h3 className="text-white">{submitButtonText}</h3>
       </Button>
-      <Button styles="wy-red" onClick={onNotFoundClick}>
+      <Button fullWidth styles="wy-red" onClick={onNotFoundClick}>
         <p>{notFoundText}</p>
       </Button>
     </div>

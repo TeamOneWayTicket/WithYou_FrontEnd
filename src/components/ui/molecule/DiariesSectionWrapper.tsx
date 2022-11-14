@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
-const PostsSectionWrapper: FC<{
+const DiariesSectionWrapper: FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   return <div className="flex flex-col w-full h-auto overflow-scroll space-y-8">{children}</div>;
 };
 
-export default PostsSectionWrapper;
+export default DiariesSectionWrapper;

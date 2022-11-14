@@ -1,12 +1,12 @@
-import { addPosts } from '@src/atom/posts';
+import { addMyDiary } from '@src/atom/myDiary';
 import { PageSEO } from '@src/components/analytics/SEO';
 import { withAuthCSR, withAuthSSR } from '@src/components/hoc';
 import { PageLayout } from '@src/components/layout';
 import HomeMainSection from '@src/components/template/HomePage/HomeMainSection';
-import MainPostsSection from '@src/components/template/HomePage/MainPostsSection';
+import MainPostsSection from '@src/components/template/HomePage/MainDiariesSection';
 import { FloatingButton, FullWidthOverflowScrollWrapper } from '@src/components/ui/atom';
 import { apiGetFamilyDiariesInfinite } from '@src/core/api/apiDiary';
-import { ApiGetDiariesInfinite } from '@src/core/api/interface/api-diary-interface';
+import { ApiGetDiariesInfinite } from '@src/core/api/types/api-diary-interface';
 import siteMetadata from '@src/core/config/siteMetadata';
 import { NextPage } from 'next';
 import React, { useCallback, useEffect, useRef } from 'react';
@@ -29,32 +29,40 @@ export const getServerSideProps = withAuthSSR(async () => {
 });
 
 const HomePage: NextPage<HomePageProps> = ({ initialDiaryInfo }) => {
-  const isInit = useRef(false);
-  const nextId = useRef(initialDiaryInfo.nextId);
+  const [diariesInfo, setMyDiariesInfo] = useRecoilState(addMyDiary);
   const isLast = useRef(initialDiaryInfo.isLast);
-  const [posts, setPosts] = useRecoilState(addPosts);
+  const nextId = useRef(initialDiaryInfo.nextId);
 
   useEffect(() => {
-    if (!isInit.current && posts.posts.length === 0) {
-      setPosts({
-        posts: initialDiaryInfo.diaries,
+    if (!diariesInfo.isInit) {
+      setMyDiariesInfo({
+        isInit: true,
+        isLast: initialDiaryInfo.isLast,
+        nextId: initialDiaryInfo.nextId,
+        diaries: initialDiaryInfo.diaries,
       });
-      isInit.current = true;
+    } else {
+      isLast.current = diariesInfo.isLast;
+      nextId.current = diariesInfo.nextId;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleLoadMore = useCallback(async () => {
     if (isLast.current) return;
-    const diaryInfo = await apiGetFamilyDiariesInfinite({
+    const nextDiaryRes = await apiGetFamilyDiariesInfinite({
       nextId: nextId.current,
       take: 5,
     });
-    nextId.current = diaryInfo.nextId;
-    isLast.current = diaryInfo.isLast;
-    setPosts({
-      posts: diaryInfo.diaries,
+    setMyDiariesInfo({
+      isInit: true,
+      isLast: nextDiaryRes.isLast,
+      nextId: nextDiaryRes.nextId,
+      diaries: nextDiaryRes.diaries,
     });
-  }, [setPosts]);
+    isLast.current = nextDiaryRes.isLast;
+    nextId.current = nextDiaryRes.nextId;
+  }, [setMyDiariesInfo]);
 
   return (
     <PageLayout showNavigation fullWidth fixedHeight className="bg-gray-50">
@@ -63,8 +71,8 @@ const HomePage: NextPage<HomePageProps> = ({ initialDiaryInfo }) => {
         description={'유아 로그를 시작해보세요'}
       />
       <FullWidthOverflowScrollWrapper>
-        {posts.posts.length > 0 ? (
-          <MainPostsSection posts={posts.posts} onScrollReachBottom={handleLoadMore} />
+        {diariesInfo.diaries.length > 0 ? (
+          <MainPostsSection diaries={diariesInfo.diaries} onScrollReachBottom={handleLoadMore} />
         ) : (
           <HomeMainSection />
         )}

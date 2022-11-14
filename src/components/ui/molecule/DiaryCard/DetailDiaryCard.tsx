@@ -1,16 +1,16 @@
 import { ImageWrapper } from '@src/components/ui/atom';
-import MainPostCardWrapper from '@src/components/ui/molecule/PostCard/Wrapper/MainPostCardWrapper';
-import { ApiCreateDiary } from '@src/core/api/interface/api-diary-interface';
+import MainPostCardWrapper from '@src/components/ui/molecule/DiaryCard/Wrapper/MainDiaryCardWrapper';
+import { ApiCreateDiary } from '@src/core/api/types/api-diary-interface';
 import React, { FunctionComponent } from 'react';
 
-const DetailPostCard: FunctionComponent<{
-  postInfo: ApiCreateDiary;
-}> = ({ postInfo }) => {
+const DetailDiaryCard: FunctionComponent<{
+  diaryInfo: ApiCreateDiary;
+}> = ({ diaryInfo }) => {
   const {
     diary: { content, media },
-  } = postInfo;
+  } = diaryInfo;
   return (
-    <MainPostCardWrapper postInfo={postInfo}>
+    <MainPostCardWrapper hideCommentCount diaryInfo={diaryInfo}>
       <div className="w-full">
         <p className="hide-text-overflow">{content}</p>
       </div>
@@ -31,4 +31,4 @@ const DetailPostCard: FunctionComponent<{
   );
 };
 
-export default DetailPostCard;
+export default DetailDiaryCard;

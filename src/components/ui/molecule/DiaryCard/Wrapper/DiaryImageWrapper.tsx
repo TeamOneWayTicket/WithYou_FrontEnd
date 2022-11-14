@@ -1,12 +1,12 @@
 import { Icon, ImageWrapper } from '@src/components/ui/atom';
-import { IDiaryMediaProps } from '@src/core/api/interface/api-diary-interface';
+import { IDiaryMediaProps } from '@src/core/api/types/api-diary-interface';
 import React, { Fragment, FunctionComponent } from 'react';
 
 interface ICommonPostCardWrapperProps {
   media: IDiaryMediaProps[];
 }
 
-const PostImageLessThanThree: FunctionComponent<ICommonPostCardWrapperProps> = ({ media }) => (
+const DiaryImageLessThanThree: FunctionComponent<ICommonPostCardWrapperProps> = ({ media }) => (
   <Fragment>
     {media.map((el, index) => (
       <div
@@ -19,7 +19,7 @@ const PostImageLessThanThree: FunctionComponent<ICommonPostCardWrapperProps> = (
   </Fragment>
 );
 
-const PostImageMoreThanThree: FunctionComponent<ICommonPostCardWrapperProps> = ({ media }) => (
+const DiaryImageMoreThanThree: FunctionComponent<ICommonPostCardWrapperProps> = ({ media }) => (
   <Fragment>
     <div className="relative flex flex-shrink basis-3/5 mr-1">
       <ImageWrapper src={media[0].fileNameInS3} className="" layout="fill" objectFit="cover" />
@@ -49,16 +49,16 @@ const PostImageMoreThanThree: FunctionComponent<ICommonPostCardWrapperProps> = (
   </Fragment>
 );
 
-const PostImageWrapper: FunctionComponent<ICommonPostCardWrapperProps> = ({ media }) => {
+const DiaryImageWrapper: FunctionComponent<ICommonPostCardWrapperProps> = ({ media }) => {
   return (
     <div className="relative flex w-full h-48 pointer-events-none rounded-xl overflow-hidden">
       {media.length <= 2 ? (
-        <PostImageLessThanThree media={media} />
+        <DiaryImageLessThanThree media={media} />
       ) : (
-        <PostImageMoreThanThree media={media} />
+        <DiaryImageMoreThanThree media={media} />
       )}
     </div>
   );
 };
 
-export default PostImageWrapper;
+export default DiaryImageWrapper;

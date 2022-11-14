@@ -33,6 +33,7 @@ export interface ApiCommonDiaryProps {
   commentCount: number;
 }
 
+export type ApiGetDiary = ApiCommonDiaryProps;
 export type ApiCreateDiary = ApiCommonDiaryProps;
 export type ApiUpdateDiary = ApiCommonDiaryProps;
 

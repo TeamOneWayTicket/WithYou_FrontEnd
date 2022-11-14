@@ -1,13 +1,14 @@
 import { ToastError, ToastWarn } from '@src/utils/toast';
 
-import { customAxios } from '../lib/customAxios';
-import { CommonApiError, isAxiosError } from '../types/axios-error';
-import { apiGetPresignedUrl } from './apiUtil';
 import {
   ApiCreateDiary,
   ApiGetDiariesInfinite,
+  ApiGetDiary,
   ApiUpdateDiary,
-} from './interface/api-diary-interface';
+} from '../api/types/api-diary-interface';
+import { customAxios } from '../lib/customAxios';
+import { CommonApiError, isAxiosError } from '../types/axios-error';
+import { apiGetPresignedUrl } from './apiUtil';
 
 export const apiGetMyDiariesInfinite = async ({
   nextId,
@@ -101,11 +102,24 @@ export const apiCreateDiary = async ({
     if (isAxiosError<CommonApiError>(err)) {
       const { message, error } = err.response.data;
       ToastWarn(message);
-      console.log(error);
       throw new Error(error);
     } else {
       ToastError('다이어리를 생성하는데 실패했습니다.');
       throw err;
     }
+  }
+};
+
+export const apiGetDiaryById = async (id: number) => {
+  try {
+    const { data } = await customAxios().get<ApiGetDiary>(`/diary/${id}`);
+    return data;
+  } catch (err) {
+    if (isAxiosError<CommonApiError>(err)) {
+      ToastError(err.response.data.message);
+    } else {
+      ToastError('다이어리를 불러오는데 실패했습니다.');
+    }
+    throw err;
   }
 };

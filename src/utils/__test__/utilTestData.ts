@@ -55,3 +55,18 @@ export const parseDistanceData = [
     output: '4만8천',
   },
 ];
+
+export const parseDateData = [
+  {
+    input: '2022-11-15T14:09:57.979',
+    output: '2022.11.15',
+  },
+  {
+    input: '2022-11-01T14:09:57.979',
+    output: '2022.11.1',
+  },
+  {
+    input: '2022-02-28T14:09:57.979',
+    output: '2022.2.28',
+  },
+];

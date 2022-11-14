@@ -1,37 +1,37 @@
 import { IntersectWrapper } from '@src/components/ui/atom';
-import { MainPostCard, ReviewCard } from '@src/components/ui/molecule';
-import PostsSectionWrapper from '@src/components/ui/molecule/DiariesSectionWrapper';
-import { ApiCommonDiaryProps } from '@src/core/api/interface/api-diary-interface';
+import { MainDiaryCard, ReviewCard } from '@src/components/ui/molecule';
+import DiariesSectionWrapper from '@src/components/ui/molecule/DiariesSectionWrapper';
+import { ApiCommonDiaryProps } from '@src/core/api/types/api-diary-interface';
 import React, { Fragment, FunctionComponent } from 'react';
 
 interface MainPostsSectionProps {
-  posts: ApiCommonDiaryProps[];
+  diaries: ApiCommonDiaryProps[];
   onScrollReachBottom: () => void;
 }
 
-const MainPostsSection: FunctionComponent<MainPostsSectionProps> = ({
-  posts,
+const MainDiariesSection: FunctionComponent<MainPostsSectionProps> = ({
+  diaries,
   onScrollReachBottom,
 }) => {
   return (
     <Fragment>
-      {posts.length > 0 && (
+      {diaries.length > 0 && (
         <Fragment>
-          <PostsSectionWrapper>
-            {posts.slice(0).map((post, index) => {
+          <DiariesSectionWrapper>
+            {diaries.slice(0).map((diary, index) => {
               return (
                 <Fragment key={`main-post-${index}`}>
                   {index !== 0 && index % 7 === 0 && <ReviewCard />}
-                  <MainPostCard postInfo={post} />
+                  <MainDiaryCard diaryInfo={diary} />
                 </Fragment>
               );
             })}
             <IntersectWrapper keepObserve onIntersect={onScrollReachBottom} />
-          </PostsSectionWrapper>
+          </DiariesSectionWrapper>
         </Fragment>
       )}
     </Fragment>
   );
 };
 
-export default MainPostsSection;
+export default MainDiariesSection;

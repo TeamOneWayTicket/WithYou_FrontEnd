@@ -1,10 +1,10 @@
 import { ImageWrapper, IntersectWrapper } from '@src/components/ui/atom';
 import DiariesSectionWrapper from '@src/components/ui/molecule/DiariesSectionWrapper';
-import ProfilePostCard from '@src/components/ui/molecule/PostCard/ProfilePostCard';
-import { ApiCommonDiaryProps } from '@src/core/api/interface/api-diary-interface';
+import ProfilePostCard from '@src/components/ui/molecule/DiaryCard/ProfileDiaryCard';
+import { ApiCommonDiaryProps } from '@src/core/api/types/api-diary-interface';
 import React, { Fragment, FunctionComponent } from 'react';
 
-const ProfilePostsSection: FunctionComponent<{
+const ProfileDiariesSection: FunctionComponent<{
   diaries: ApiCommonDiaryProps[];
   onScrollReachBottom: () => void;
 }> = ({ diaries, onScrollReachBottom }) => {
@@ -16,7 +16,7 @@ const ProfilePostsSection: FunctionComponent<{
             {diaries.map((diary, index) => {
               return (
                 <Fragment key={`profile-post-${index}`}>
-                  <ProfilePostCard postInfo={diary} />
+                  <ProfilePostCard diaryInfo={diary} />
                 </Fragment>
               );
             })}
@@ -46,4 +46,4 @@ const ProfilePostsSection: FunctionComponent<{
   );
 };
 
-export default ProfilePostsSection;
+export default ProfileDiariesSection;

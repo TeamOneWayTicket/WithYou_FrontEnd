@@ -88,7 +88,7 @@ const EnrollPage = () => {
             error={!nameIsValid}
             errorMessage={nameError}
             name="username"
-            classNames="border-none bg-gray-50"
+            className="border-none bg-gray-50"
             onChange={handleNameChange}
           />
           <SelectBox
@@ -110,7 +110,7 @@ const EnrollPage = () => {
                 value={familyCode.value}
                 disabled={!familyCode.isValid}
                 name="familyCode"
-                classNames="border-none bg-gray-50"
+                className="border-none bg-gray-50"
                 onChange={handleFamilyCodeChange}
               />
             ) : (
