@@ -5,12 +5,13 @@ import { ApiCommonDiaryProps } from '@src/core/api/types/api-diary-interface';
 import React, { Fragment, FunctionComponent } from 'react';
 
 const ProfileDiariesSection: FunctionComponent<{
+  isInit: boolean;
   diaries: ApiCommonDiaryProps[];
   onScrollReachBottom: () => void;
-}> = ({ diaries, onScrollReachBottom }) => {
+}> = ({ isInit, diaries, onScrollReachBottom }) => {
   return (
     <Fragment>
-      {diaries.length > 0 ? (
+      {isInit && diaries.length > 0 ? (
         <div className="bg-gray-50">
           <DiariesSectionWrapper>
             {diaries.map((diary, index) => {

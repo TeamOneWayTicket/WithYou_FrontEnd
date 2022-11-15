@@ -85,6 +85,7 @@ const ProfilePage: NextPage<ProfilePageProps> = ({ user, initialDiaryInfo }) => 
       <FullWidthOverflowScrollWrapper>
         <ProfileIntroSection userInfo={user} />
         <ProfileDiariesSection
+          isInit={familyDiariesInfo.isInit}
           diaries={familyDiariesInfo.diaries}
           onScrollReachBottom={handleLoadMore}
         />

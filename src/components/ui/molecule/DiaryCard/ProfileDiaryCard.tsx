@@ -1,23 +1,27 @@
-import PostImageWrapper from '@src/components/ui/molecule/DiaryCard/Wrapper/DiaryImageWrapper';
-import ProfilePostCardWrapper from '@src/components/ui/molecule/DiaryCard/Wrapper/ProfileDiaryCardWrapper';
 import { ApiCreateDiary } from '@src/core/api/types/api-diary-interface';
-import Link from 'next/link';
+import { parseDate } from '@src/utils/dateUtil';
 import React, { FunctionComponent } from 'react';
+
+import DiaryCardWrapper from './common/DiaryCardWrapper';
+import DiaryContent from './common/DiaryContent';
 
 const ProfileDiaryCard: FunctionComponent<{
   diaryInfo: ApiCreateDiary;
 }> = ({ diaryInfo }) => {
   const {
-    diary: { media, id },
+    diary: { createdAt },
   } = diaryInfo;
   return (
-    <ProfilePostCardWrapper diaryInfo={diaryInfo}>
-      <Link href={`/diary/${id}`}>
-        <a className="block">
-          <PostImageWrapper media={media} />
-        </a>
-      </Link>
-    </ProfilePostCardWrapper>
+    <DiaryCardWrapper>
+      <DiaryContent diaryInfo={diaryInfo} />
+      <div className="w-full">
+        <p className="text-gray-400">
+          {parseDate({
+            date: createdAt,
+          })}
+        </p>
+      </div>
+    </DiaryCardWrapper>
   );
 };
 

@@ -71,7 +71,7 @@ const HomePage: NextPage<HomePageProps> = ({ initialDiaryInfo }) => {
         description={'유아 로그를 시작해보세요'}
       />
       <FullWidthOverflowScrollWrapper>
-        {diariesInfo.diaries.length > 0 ? (
+        {diariesInfo.isInit && diariesInfo.diaries.length > 0 ? (
           <MainPostsSection diaries={diariesInfo.diaries} onScrollReachBottom={handleLoadMore} />
         ) : (
           <HomeMainSection />

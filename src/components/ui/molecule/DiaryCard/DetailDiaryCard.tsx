@@ -1,33 +1,36 @@
-import { ImageWrapper } from '@src/components/ui/atom';
-import MainPostCardWrapper from '@src/components/ui/molecule/DiaryCard/Wrapper/MainDiaryCardWrapper';
+import { Icon } from '@src/components/ui/atom';
 import { ApiCreateDiary } from '@src/core/api/types/api-diary-interface';
+import { parseDate } from '@src/utils/dateUtil';
 import React, { FunctionComponent } from 'react';
+
+import DiaryCardHeader from '../../atom/Header/DiaryCardHeader';
+import DiaryCardWrapper from './common/DiaryCardWrapper';
+import DiaryContent from './common/DiaryContent';
 
 const DetailDiaryCard: FunctionComponent<{
   diaryInfo: ApiCreateDiary;
 }> = ({ diaryInfo }) => {
   const {
-    diary: { content, media },
+    diary: { createdAt },
+    author: { thumbnail, nickname },
   } = diaryInfo;
   return (
-    <MainPostCardWrapper hideCommentCount diaryInfo={diaryInfo}>
-      <div className="w-full">
-        <p className="hide-text-overflow">{content}</p>
-      </div>
-      {media &&
-        media.map((mediaInfo, index) => {
-          return (
-            <div key={`detail-post-image-${index}`} className="relative w-full h-48">
-              <ImageWrapper
-                src={mediaInfo.fileNameInS3}
-                className="rounded-xl pointer-events-none"
-                layout="fill"
-                objectFit="cover"
-              />
-            </div>
-          );
+    <DiaryCardWrapper>
+      <DiaryCardHeader
+        profileImage={thumbnail}
+        profileName={nickname}
+        timeStamp={parseDate({
+          date: createdAt,
         })}
-    </MainPostCardWrapper>
+      />
+      <DiaryContent showFullContent showContentReverse diaryInfo={diaryInfo} />
+      <div className="flex space-x-2 py-2">
+        <div className="flex text-gray-500">
+          <Icon name="share" />
+          <span>공유하기</span>
+        </div>
+      </div>
+    </DiaryCardWrapper>
   );
 };
 

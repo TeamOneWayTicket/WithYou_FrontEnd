@@ -70,15 +70,20 @@ const DiaryCommentTemplate: FunctionComponent<Props> = ({ diaryId, initialCommen
     <Fragment>
       <DiaryComments />
       <div className="fixed bottom-0 w-full max-w-mobile-app">
-        <InputBox
-          fullWidth
-          type="id"
-          name="commentInput"
-          label=""
-          value={commentInput}
-          onKeyPress={handleOnSendComment}
-          onChange={handleCommentInputChange}
-        />
+        <div className="bg-white px-3 py-2">
+          <InputBox
+            fullWidth
+            className="bg-gray-200 placeholder:text-gray-500"
+            roundness="square"
+            type="id"
+            label=""
+            placeholder="댓글을 입력해주세요."
+            name="commentInput"
+            value={commentInput}
+            onKeyPress={handleOnSendComment}
+            onChange={handleCommentInputChange}
+          />
+        </div>
       </div>
     </Fragment>
   );

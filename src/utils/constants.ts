@@ -1,10 +1,14 @@
 import { SelectOption } from '@src/components/ui/atom/Input/SelectBox';
 
+export type commonRoundness = 'primary' | 'keyboard';
 export type commonSizes = 'large' | 'medium' | 'small' | 'xsmall';
 
-export type btnRounded = 'primary' | 'keyboard';
+export type btnRoundness = commonRoundness;
 export type btnSizes = commonSizes | 'none';
+
+export type inputBoxRoundness = commonRoundness | 'square';
 export type inputBoxSizes = commonSizes;
+
 export type selectBoxSizes = commonSizes;
 
 export type btnStyles =

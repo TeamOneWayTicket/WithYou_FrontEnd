@@ -1,5 +1,5 @@
 import { buttonSettings } from '@src/animations/common';
-import { btnRounded, btnSizes, btnStyles } from '@src/utils/constants';
+import { btnRoundness, btnSizes, btnStyles } from '@src/utils/constants';
 import cx from 'classnames';
 import { motion } from 'framer-motion';
 import React, { forwardRef, ForwardRefRenderFunction } from 'react';
@@ -8,7 +8,7 @@ export type ButtonProps = {
   type?: 'button' | 'submit' | 'reset';
   size?: btnSizes;
   styles?: btnStyles;
-  roundness?: btnRounded;
+  roundness?: btnRoundness;
   activeHover?: boolean;
   disabled?: boolean;
   fullWidth?: boolean;
@@ -17,7 +17,7 @@ export type ButtonProps = {
   onClick?: () => void;
 };
 
-const selectRounded: { [key in btnRounded]: string } = {
+const selectRounded: { [key in btnRoundness]: string } = {
   primary: 'rounded-[2.5rem]',
   keyboard: 'rounded-none',
 };
