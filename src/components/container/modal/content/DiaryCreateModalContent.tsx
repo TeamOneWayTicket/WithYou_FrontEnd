@@ -2,7 +2,7 @@ import { closeModal } from '@src/atom/modal';
 import { addMyDiaryReverse } from '@src/atom/myDiary';
 import { Button, IconButton } from '@src/components/ui/atom';
 import DropZone from '@src/components/ui/organism/Dropzone';
-import { apiCreateDiary } from '@src/core/api/apiDiary';
+import { apiCreateDiary } from '@src/core/api/diary/apiDiary';
 import { ModalContentType } from '@src/core/types/modal-type';
 import { ToastError } from '@src/utils/toast';
 import { twcDivide } from '@src/utils/twcUtil';

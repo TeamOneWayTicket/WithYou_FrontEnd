@@ -18,7 +18,7 @@ const Navigation: FC<{
       <motion.div
         className={cx(
           'w-full max-w-mobile-app h-bt-nav bottom-0',
-          'fixed flex justify-evenly justify-center items-center',
+          'fixed flex justify-evenly items-center',
           'px-side-padding py-2',
           transparent ? 'bg-transparent' : 'bg-primary-bg',
           className

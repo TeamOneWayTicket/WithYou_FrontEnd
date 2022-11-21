@@ -1,6 +1,6 @@
 import { InputBox } from '@src/components/ui/atom';
 import PostCardHeader from '@src/components/ui/atom/Header/DiaryCardHeader';
-import { apiCreateCommentById } from '@src/core/api/apiDiaryComment';
+import { apiCreateCommentById } from '@src/core/api/diary/apiDiaryComment';
 import { IComment } from '@src/core/api/types/api-diary-comment-interface';
 import { needDefaultImage } from '@src/utils/imageUtil';
 import { twcDivide } from '@src/utils/twcUtil';

@@ -1,14 +1,14 @@
 import { ToastError, ToastWarn } from '@src/utils/toast';
 
+import { customAxios } from '../../lib/customAxios';
+import { CommonApiError, isAxiosError } from '../../types/axios-error';
+import { apiGetPresignedUrl } from '../apiUtil';
 import {
   ApiCreateDiary,
   ApiGetDiariesInfinite,
   ApiGetDiary,
   ApiUpdateDiary,
-} from '../api/types/api-diary-interface';
-import { customAxios } from '../lib/customAxios';
-import { CommonApiError, isAxiosError } from '../types/axios-error';
-import { apiGetPresignedUrl } from './apiUtil';
+} from '../types/api-diary-interface';
 
 export const apiGetMyDiariesInfinite = async ({
   nextId,

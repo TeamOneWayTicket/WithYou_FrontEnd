@@ -59,7 +59,6 @@ const InputBox: FunctionComponent<Props> = ({
         {label !== '' && (
           <label htmlFor={name}>{<p className="text-xs font-bold md:text-base">{label}</p>}</label>
         )}
-
         <input
           disabled={disabled}
           id={name}
@@ -68,7 +67,6 @@ const InputBox: FunctionComponent<Props> = ({
             'p-2 w-full h-full',
             sizeSelector[size],
             styleSelector[style],
-            style === 'transparent' ? 'border-b border-gray-300' : 'border-2',
             selectRounded[roundness],
             error ? 'border-red-500' : '',
             'focus:outline-none',
@@ -77,12 +75,11 @@ const InputBox: FunctionComponent<Props> = ({
           )}
           {...props}
         />
+        {style === 'transparent' && <div className="border-b-[1px] border-gray-300" />}
       </div>
-      {error && (
-        <div className="h-4">
-          <p className="text-xs md:text-sm text-red-400">{errorMessage}</p>
-        </div>
-      )}
+      <div className="h-2">
+        {error && <p className="text-xs md:text-sm text-red-400">{errorMessage}</p>}
+      </div>
     </div>
   );
 };

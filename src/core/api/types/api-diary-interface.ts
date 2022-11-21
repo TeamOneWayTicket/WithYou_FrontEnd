@@ -42,3 +42,7 @@ export interface ApiGetDiariesInfinite {
   nextId: number | null;
   isLast: boolean;
 }
+
+export interface ApiGetFamilyRecommandDiariesByDate {
+  diaries: ApiCommonDiaryProps[];
+}

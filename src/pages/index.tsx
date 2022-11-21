@@ -5,7 +5,7 @@ import { PageLayout } from '@src/components/layout';
 import HomeMainSection from '@src/components/template/HomePage/HomeMainSection';
 import MainPostsSection from '@src/components/template/HomePage/MainDiariesSection';
 import { FloatingButton, FullWidthOverflowScrollWrapper } from '@src/components/ui/atom';
-import { apiGetFamilyDiariesInfinite } from '@src/core/api/apiDiary';
+import { apiGetFamilyDiariesInfinite } from '@src/core/api/diary/apiDiary';
 import { ApiGetDiariesInfinite } from '@src/core/api/types/api-diary-interface';
 import siteMetadata from '@src/core/config/siteMetadata';
 import { NextPage } from 'next';

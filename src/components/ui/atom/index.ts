@@ -14,9 +14,6 @@ export { default as CustomDatePicker } from './Calendar/CustomDatePicker';
 export { default as ImageWrapper } from './Wrapper/ImageWrapper';
 export { default as IntersectWrapper } from './Wrapper/IntersectWrapper';
 
-// Editor
-export { default as NoteEditor } from './NoteEditor';
-
 // Camera
 export { default as Camera } from './Camera/Camera';
 export { default as FullScreenCamera } from './Camera/FullScreenCamera';

@@ -1,12 +1,21 @@
+import { Button } from '@src/components/ui/atom';
 import ImageWithEditButton from '@src/components/ui/organism/ImageWithEditButton';
+import { apiGetInviteCode } from '@src/core/api/apiFamily';
 import { apiUpdateThumbnail } from '@src/core/api/apiProfile';
 import { CommonUserAuthInfoType } from '@src/core/types/auth-type';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import { useCopyToClipboard } from '@src/hooks/navigation';
+import React, { FunctionComponent, useCallback, useEffect, useState } from 'react';
 
 const ProfileIntroSection: FunctionComponent<{
   userInfo: CommonUserAuthInfoType['user'];
 }> = ({ userInfo: { thumbnail, nickname, role } }) => {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [copiedText, copy] = useCopyToClipboard();
+
+  const handleFamilyCodeIssue = useCallback(async () => {
+    const { inviteCode } = await apiGetInviteCode();
+    await copy(inviteCode);
+  }, [copy]);
 
   useEffect(() => {
     (async () => {
@@ -18,7 +27,7 @@ const ProfileIntroSection: FunctionComponent<{
   }, [imageFiles]);
 
   return (
-    <div className="w-full h-52 flex flex-col justify-center items-center space-y-2">
+    <div className="w-full h-auto flex flex-col justify-center items-center space-y-2">
       <ImageWithEditButton
         imageFiles={imageFiles}
         setImageFiles={setImageFiles}
@@ -26,8 +35,11 @@ const ProfileIntroSection: FunctionComponent<{
         src={thumbnail === '' ? '/static/default_profile.svg' : thumbnail}
       />
       <div className="text-center space-y-0.5">
-        <h1>{nickname}</h1>
+        <h2>{nickname}</h2>
         <p className="text-wy-blue-500">{role}</p>
+        <Button styles="wy-blue" size="small" onClick={handleFamilyCodeIssue}>
+          {copiedText ?? '가족코드 발급'}
+        </Button>
       </div>
     </div>
   );

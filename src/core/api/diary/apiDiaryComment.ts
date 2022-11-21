@@ -1,8 +1,8 @@
+import { customAxios } from '@src/core/lib/customAxios';
+import { CommonApiError, isAxiosError } from '@src/core/types/axios-error';
 import { ToastError } from '@src/utils/toast';
 
-import { customAxios } from '../lib/customAxios';
-import { CommonApiError, isAxiosError } from '../types/axios-error';
-import { ApiCreateDiaryComment, ApiGetDiaryComments } from './types/api-diary-comment-interface';
+import { ApiCreateDiaryComment, ApiGetDiaryComments } from '../types/api-diary-comment-interface';
 
 export const apiGetCommentsById = async (id: number) => {
   try {

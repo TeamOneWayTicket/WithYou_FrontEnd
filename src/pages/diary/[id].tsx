@@ -3,13 +3,13 @@ import { PageLayout } from '@src/components/layout';
 import PostCommentTemplate from '@src/components/template/DiaryPage/DiaryCommentTemplate';
 import CommonBackwardHeader from '@src/components/ui/atom/Header/CommonBackwardHeader';
 import DetailDiaryCard from '@src/components/ui/molecule/DiaryCard/DetailDiaryCard';
-import { apiGetDiaryById } from '@src/core/api/apiDiary';
-import { apiGetCommentsById } from '@src/core/api/apiDiaryComment';
+import { apiGetDiaryById } from '@src/core/api/diary/apiDiary';
+import { apiGetCommentsById } from '@src/core/api/diary/apiDiaryComment';
 import { ApiGetDiaryComments } from '@src/core/api/types/api-diary-comment-interface';
 import { ApiGetDiary } from '@src/core/api/types/api-diary-interface';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 interface DetailDiaryPageProps {
   diaryId: number;

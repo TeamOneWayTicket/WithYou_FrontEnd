@@ -1,2 +1,2 @@
-export type PortalType = 'modal' | 'floating';
-export const portalType: string[] = ['modal', 'floating'];
+export type PortalType = 'modal' | 'floating' | 'sheet';
+export const portalType: string[] = ['modal', 'floating', 'sheet'];
