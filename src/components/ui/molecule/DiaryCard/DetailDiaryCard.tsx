@@ -4,12 +4,16 @@ import { parseDate } from '@src/utils/dateUtil';
 import React, { FunctionComponent } from 'react';
 
 import DiaryCardHeader from '../../atom/Header/DiaryCardHeader';
+import DetailDiaryInfiniteSliderItem from '../Slider/contents/DetailDiaryInfiniteSliderItem';
+import InfiniteSlider from '../Slider/InfiniteSlider';
 import DiaryCardWrapper from './common/DiaryCardWrapper';
-import DiaryContent from './common/DiaryContent';
 
 const DetailDiaryCard: FunctionComponent<{
   diaryInfo: ApiCreateDiary;
 }> = ({ diaryInfo }) => {
+  const {
+    diary: { media },
+  } = diaryInfo;
   const {
     diary: { createdAt },
     author: { thumbnail, nickname },
@@ -23,7 +27,13 @@ const DetailDiaryCard: FunctionComponent<{
           date: createdAt,
         })}
       />
-      <DiaryContent showFullContent showContentReverse diaryInfo={diaryInfo} />
+      <InfiniteSlider enableDot>
+        {media.map((el, idx) => (
+          <div key={`detail-diary-slider-item-${idx}`} className="h-[320px]">
+            <DetailDiaryInfiniteSliderItem media={el} />
+          </div>
+        ))}
+      </InfiniteSlider>
       <div className="flex space-x-2 py-2">
         <div className="flex text-gray-500">
           <Icon name="share" />

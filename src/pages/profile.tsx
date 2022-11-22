@@ -35,7 +35,7 @@ export const getServerSideProps = withAuthSSR(async (ctx) => {
 });
 
 const ProfilePage: NextPage<ProfilePageProps> = ({ user, initialDiaryInfo }) => {
-  const [familyDiariesInfo, setFamilyDiariesInfo] = useRecoilState(addFamilyDiaries);
+  const [diariesInfo, setDiariesInfo] = useRecoilState(addFamilyDiaries);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [handleLogout] = useLogout();
 
@@ -51,18 +51,17 @@ const ProfilePage: NextPage<ProfilePageProps> = ({ user, initialDiaryInfo }) => 
   }, []);
 
   useEffect(() => {
-    if (!familyDiariesInfo.isInit) {
-      setFamilyDiariesInfo({
+    if (!diariesInfo.isInit) {
+      setDiariesInfo({
         isInit: true,
         isLast: initialDiaryInfo.isLast,
         nextId: initialDiaryInfo.nextId,
         diaries: initialDiaryInfo.diaries,
       });
     } else {
-      isLast.current = familyDiariesInfo.isLast;
-      nextId.current = familyDiariesInfo.nextId;
+      isLast.current = diariesInfo.isLast;
+      nextId.current = diariesInfo.nextId;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleLoadMore = useCallback(async () => {
@@ -72,7 +71,7 @@ const ProfilePage: NextPage<ProfilePageProps> = ({ user, initialDiaryInfo }) => 
       nextId: nextId.current,
       take: 5,
     });
-    setFamilyDiariesInfo({
+    setDiariesInfo({
       isInit: true,
       isLast: nextDiaryRes.isLast,
       nextId: nextDiaryRes.nextId,
@@ -80,7 +79,7 @@ const ProfilePage: NextPage<ProfilePageProps> = ({ user, initialDiaryInfo }) => 
     });
     isLast.current = nextDiaryRes.isLast;
     nextId.current = nextDiaryRes.nextId;
-  }, [setFamilyDiariesInfo]);
+  }, []);
 
   return (
     <PageLayout
@@ -95,11 +94,19 @@ const ProfilePage: NextPage<ProfilePageProps> = ({ user, initialDiaryInfo }) => 
       }
     >
       <PageSEO title={siteMetadata.title + ' Profile'} description={'profile page'} />
-      <ProfilePageTemplate
-        user={user}
-        familyDiariesInfo={familyDiariesInfo}
-        handleLoadMore={handleLoadMore}
-      />
+      {diariesInfo.isInit ? (
+        <ProfilePageTemplate
+          user={user}
+          diaries={diariesInfo.diaries}
+          handleLoadMore={handleLoadMore}
+        />
+      ) : (
+        <ProfilePageTemplate
+          user={user}
+          diaries={initialDiaryInfo.diaries}
+          handleLoadMore={handleLoadMore}
+        />
+      )}
       <BottomSheetLayout
         sheetHeight={144}
         isOpen={isBottomSheetOpen}

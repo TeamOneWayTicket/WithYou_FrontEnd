@@ -14,6 +14,7 @@ const nextConfig = {
   },
   env: {
     BASE_API_URL: process.env.BASE_API_URL,
+    JWT_DOMAIN: process.env.JWT_DOMAIN,
     KAKAO_CLIENT_ID: process.env.KAKAO_CLIENT_ID,
     KAKAO_REDIRECT_URL: process.env.KAKAO_REDIRECT_URL,
   },

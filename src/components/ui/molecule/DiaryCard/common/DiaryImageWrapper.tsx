@@ -51,7 +51,7 @@ const DiaryImageMoreThanThree: FunctionComponent<ICommonPostCardWrapperProps> = 
 
 const DiaryImageWrapper: FunctionComponent<ICommonPostCardWrapperProps> = ({ media }) => {
   return (
-    <div className="relative flex w-full h-48 pointer-events-none rounded-xl overflow-hidden">
+    <div className="relative flex w-full h-[240px] pointer-events-none rounded-xl overflow-hidden">
       {media.length <= 2 ? (
         <DiaryImageLessThanThree media={media} />
       ) : (

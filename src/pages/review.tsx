@@ -3,7 +3,7 @@ import { withAuthCSR, withAuthSSR } from '@src/components/hoc';
 import { PageLayout } from '@src/components/layout';
 import { CustomDatePicker } from '@src/components/ui/atom';
 import { InfiniteSlider } from '@src/components/ui/molecule';
-import InfiniteSliderItem from '@src/components/ui/molecule/Slider/InfiniteSliderItem';
+import ReviewInfiniteSliderItem from '@src/components/ui/molecule/Slider/contents/ReviewInfiniteSliderItem';
 import { apiGetFamilyRecommandDiariesByDate } from '@src/core/api/diary/apiDiaryRecommend';
 import { ApiCommonDiaryProps } from '@src/core/api/types/api-diary-interface';
 import siteMetadata from '@src/core/config/siteMetadata';
@@ -28,7 +28,7 @@ export const getServerSideProps = withAuthSSR(async () => {
 
 const ReviewPage: NextPage<ReviewPageProps> = ({ initialDiaries }) => {
   const [mounted, setMounted] = useState(false);
-  // Todo: save prev date on localstorage
+
   const [startDate, setStartDate] = useState(new Date());
   const [familyDiaries, setFamilyDiaries] = useState<ApiCommonDiaryProps[]>([]);
 
@@ -59,7 +59,7 @@ const ReviewPage: NextPage<ReviewPageProps> = ({ initialDiaries }) => {
           {mounted ? (
             familyDiaries.length > 0 ? (
               familyDiaries.map((diary, idx) => (
-                <InfiniteSliderItem key={`review-diary-${idx}}`} diary={diary} />
+                <ReviewInfiniteSliderItem key={`review-diary-${idx}}`} diary={diary} />
               ))
             ) : (
               <div className="text-center w-full h-full flex justify-center items-center">
@@ -68,7 +68,7 @@ const ReviewPage: NextPage<ReviewPageProps> = ({ initialDiaries }) => {
             )
           ) : initialDiaries.length > 0 ? (
             initialDiaries.map((diary, idx) => (
-              <InfiniteSliderItem key={`review-diary-${idx}}`} diary={diary} />
+              <ReviewInfiniteSliderItem key={`review-diary-${idx}}`} diary={diary} />
             ))
           ) : (
             <div className="text-center w-full h-full flex justify-center items-center">

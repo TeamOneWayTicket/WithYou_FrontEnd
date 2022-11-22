@@ -1,9 +1,9 @@
 import { openPostCreateModal } from '@src/atom/modal';
 import { ButtonWithIcon, ImageWrapper } from '@src/components/ui/atom';
-import React, { memo } from 'react';
+import React from 'react';
 import { useSetRecoilState } from 'recoil';
 
-const HomeMainSection = () => {
+const HomeDiaryEmptySection = () => {
   const openPostCreateModalCB = useSetRecoilState(openPostCreateModal);
 
   return (
@@ -40,4 +40,4 @@ const HomeMainSection = () => {
   );
 };
 
-export default memo(HomeMainSection);
+export default HomeDiaryEmptySection;

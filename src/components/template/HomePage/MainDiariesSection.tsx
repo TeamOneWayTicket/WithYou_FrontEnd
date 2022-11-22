@@ -4,6 +4,8 @@ import DiariesSectionWrapper from '@src/components/ui/molecule/DiariesSectionWra
 import { ApiCommonDiaryProps } from '@src/core/api/types/api-diary-interface';
 import React, { Fragment, FunctionComponent } from 'react';
 
+import HomeDiaryEmptySection from './HomeDiaryEmptySection';
+
 interface MainPostsSectionProps {
   diaries: ApiCommonDiaryProps[];
   onScrollReachBottom: () => void;
@@ -15,7 +17,7 @@ const MainDiariesSection: FunctionComponent<MainPostsSectionProps> = ({
 }) => {
   return (
     <Fragment>
-      {diaries.length > 0 && (
+      {diaries.length > 0 ? (
         <Fragment>
           <DiariesSectionWrapper>
             {diaries.slice(0).map((diary, index) => {
@@ -29,6 +31,8 @@ const MainDiariesSection: FunctionComponent<MainPostsSectionProps> = ({
             <IntersectWrapper keepObserve onIntersect={onScrollReachBottom} />
           </DiariesSectionWrapper>
         </Fragment>
+      ) : (
+        <HomeDiaryEmptySection />
       )}
     </Fragment>
   );

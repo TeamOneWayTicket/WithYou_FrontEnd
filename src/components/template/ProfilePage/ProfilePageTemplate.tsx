@@ -1,5 +1,5 @@
 import { FullWidthOverflowScrollWrapper } from '@src/components/ui/atom';
-import { DiaryAtom } from '@src/core/types/diary-type';
+import { ApiCommonDiaryProps } from '@src/core/api/types/api-diary-interface';
 import { ProfilePageProps } from '@src/pages/profile';
 import React, { Fragment, FunctionComponent } from 'react';
 
@@ -8,24 +8,20 @@ import ProfileIntroSection from './ProfileIntroSection';
 
 interface ProfilePageTemplateProps {
   user: ProfilePageProps['user'];
-  familyDiariesInfo: DiaryAtom;
+  diaries: ApiCommonDiaryProps[];
   handleLoadMore: () => void;
 }
 
 const ProfilePageTemplate: FunctionComponent<ProfilePageTemplateProps> = ({
   user,
-  familyDiariesInfo,
+  diaries,
   handleLoadMore,
 }) => {
   return (
     <Fragment>
       <FullWidthOverflowScrollWrapper>
         <ProfileIntroSection userInfo={user} />
-        <ProfileDiariesSection
-          isInit={familyDiariesInfo.isInit}
-          diaries={familyDiariesInfo.diaries}
-          onScrollReachBottom={handleLoadMore}
-        />
+        <ProfileDiariesSection diaries={diaries} onScrollReachBottom={handleLoadMore} />
       </FullWidthOverflowScrollWrapper>
     </Fragment>
   );

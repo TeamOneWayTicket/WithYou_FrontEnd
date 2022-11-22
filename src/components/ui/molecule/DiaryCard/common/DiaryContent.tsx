@@ -30,7 +30,7 @@ const DiaryContent: FunctionComponent<Props> = ({
       )}
     >
       <Link href={`/diary/${id}`}>
-        <a className="block">
+        <a className="block w-full h-full">
           <DiaryImageWrapper media={media} />
         </a>
       </Link>

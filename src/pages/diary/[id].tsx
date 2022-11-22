@@ -71,13 +71,11 @@ const PostPage: NextPage<DetailDiaryPageProps> = ({
       className="bg-gray-50"
       headerContent={<CommonBackwardHeader onBack={handleBackward} />}
     >
-      <div className="relative w-full h-full space-y-2">
-        <div className="relative w-full h-[380px]">
+      <div className="relative w-full h-full space-y-2 overflow-y-scroll overflow-x-hidden">
+        <div className="h-auto">
           <DetailDiaryCard diaryInfo={initialDiaryInfo} />
         </div>
-        <div className="relative w-full h-[calc(100%-380px)] overflow-y-scroll">
-          <PostCommentTemplate diaryId={diaryId} initialCommentsInfo={initialCommentsInfo} />
-        </div>
+        <PostCommentTemplate diaryId={diaryId} initialCommentsInfo={initialCommentsInfo} />
       </div>
     </PageLayout>
   );

@@ -1,16 +1,16 @@
+import { Icon, ImageWrapper } from '@src/components/ui/atom';
 import { ApiCommonDiaryProps } from '@src/core/api/types/api-diary-interface';
 import { needDefaultImage } from '@src/utils/imageUtil';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
-import { Icon, ImageWrapper } from '../../atom';
-import ImageWithBackground from '../ImageWithBackground';
+import ImageWithBackground from '../../ImageWithBackground';
 
 interface Props {
   diary: ApiCommonDiaryProps;
 }
 
-const InfiniteSliderItem: FunctionComponent<Props> = ({ diary }) => {
+const ReviewInfiniteSliderItem: FunctionComponent<Props> = ({ diary }) => {
   const {
     author: { thumbnail, role },
     diary: { content, media },
@@ -54,4 +54,4 @@ const InfiniteSliderItem: FunctionComponent<Props> = ({ diary }) => {
   );
 };
 
-export default InfiniteSliderItem;
+export default ReviewInfiniteSliderItem;

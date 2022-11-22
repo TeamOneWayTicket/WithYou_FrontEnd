@@ -2,7 +2,6 @@ import { swipePower } from '@src/utils/framerUtil';
 import { AnimatePresence, motion, useAnimation } from 'framer-motion';
 import { Children, Fragment, FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
 
-import InfiniteSliderItem from './InfiniteSliderItem';
 import InfiniteSliderItemWrapper from './InfiniteSliderItemWrapper';
 
 const InfiniteSlider: FunctionComponent<{

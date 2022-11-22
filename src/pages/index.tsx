@@ -2,14 +2,13 @@ import { addMyDiary } from '@src/atom/myDiary';
 import { PageSEO } from '@src/components/analytics/SEO';
 import { withAuthCSR, withAuthSSR } from '@src/components/hoc';
 import { PageLayout } from '@src/components/layout';
-import HomeMainSection from '@src/components/template/HomePage/HomeMainSection';
 import MainPostsSection from '@src/components/template/HomePage/MainDiariesSection';
 import { FloatingButton, FullWidthOverflowScrollWrapper } from '@src/components/ui/atom';
 import { apiGetFamilyDiariesInfinite } from '@src/core/api/diary/apiDiary';
 import { ApiGetDiariesInfinite } from '@src/core/api/types/api-diary-interface';
 import siteMetadata from '@src/core/config/siteMetadata';
 import { NextPage } from 'next';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 interface HomePageProps {
@@ -45,7 +44,6 @@ const HomePage: NextPage<HomePageProps> = ({ initialDiaryInfo }) => {
       isLast.current = diariesInfo.isLast;
       nextId.current = diariesInfo.nextId;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleLoadMore = useCallback(async () => {
@@ -71,10 +69,13 @@ const HomePage: NextPage<HomePageProps> = ({ initialDiaryInfo }) => {
         description={'유아 로그를 시작해보세요'}
       />
       <FullWidthOverflowScrollWrapper>
-        {diariesInfo.isInit && diariesInfo.diaries.length > 0 ? (
+        {diariesInfo.isInit ? (
           <MainPostsSection diaries={diariesInfo.diaries} onScrollReachBottom={handleLoadMore} />
         ) : (
-          <HomeMainSection />
+          <MainPostsSection
+            diaries={initialDiaryInfo.diaries}
+            onScrollReachBottom={handleLoadMore}
+          />
         )}
       </FullWidthOverflowScrollWrapper>
       <FloatingButton />
