@@ -1,7 +1,6 @@
-import { ReactText } from 'react';
 import { toast } from 'react-toastify';
 
-export const ToastError = (message: string): ReactText => {
+export const ToastError = (message: string) => {
   return toast.error(message, {
     toastId: 1,
     position: 'top-center',
@@ -14,7 +13,7 @@ export const ToastError = (message: string): ReactText => {
   });
 };
 
-export const ToastWarn = (message: string): ReactText => {
+export const ToastWarn = (message: string) => {
   return toast.warn(message, {
     toastId: 1,
     position: 'top-center',
@@ -27,7 +26,7 @@ export const ToastWarn = (message: string): ReactText => {
   });
 };
 
-export const ToastSuccess = (message: string): ReactText => {
+export const ToastSuccess = (message: string) => {
   return toast.success(message, {
     toastId: 1,
     position: 'top-center',
@@ -40,7 +39,7 @@ export const ToastSuccess = (message: string): ReactText => {
   });
 };
 
-export const ToastInfo = (message: string): ReactText => {
+export const ToastInfo = (message: string) => {
   return toast.info(message, {
     toastId: 1,
     position: 'top-center',
@@ -51,4 +50,21 @@ export const ToastInfo = (message: string): ReactText => {
     draggable: true,
     progress: undefined,
   });
+};
+
+export const ToastWaitingResult = (message: string, id: number) => {
+  return toast.info(message, {
+    toastId: id,
+    position: 'top-center',
+    autoClose: false,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+};
+
+export const ToastWaitingResultClose = (id: number) => {
+  return toast.dismiss(id);
 };

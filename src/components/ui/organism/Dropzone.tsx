@@ -1,7 +1,50 @@
-import { FileInputBox, Icon } from '@src/components/ui/atom';
+import { FileInputBox, Icon, ImageWrapper } from '@src/components/ui/atom';
 import { usePreviewImage } from '@src/hooks';
 import { usePreviewImageProps } from '@src/hooks/usePreviewImage';
-import React, { FunctionComponent } from 'react';
+import React, { Fragment, FunctionComponent } from 'react';
+
+const PreviewImageLessThanThree = ({ images }) => (
+  <Fragment>
+    {images.map((image, index) => (
+      <div
+        key={`post-image-${index}`}
+        className="relative flex flex-shrink flex-nowrap w-full h-full basis-1/2"
+      >
+        <ImageWrapper layout="fill" objectFit="cover" src={image} alt="" />
+      </div>
+    ))}
+  </Fragment>
+);
+
+const PreviewImageMoreThanThree = ({ images }) => (
+  <Fragment>
+    <div className="relative flex flex-shrink basis-3/5 mr-1">
+      <ImageWrapper src={images[0]} layout="fill" objectFit="cover" />
+    </div>
+    <div className="relative flex flex-col flex-shrink basis-2/5 space-y-1">
+      <div className="relative flex basis-1/2">
+        <ImageWrapper src={images[1]} layout="fill" objectFit="cover" />
+      </div>
+      <div className="relative flex basis-1/2">
+        <ImageWrapper
+          src={images[2]}
+          className=""
+          layout="fill"
+          objectFit="cover"
+          {...(images.length > 3 && {
+            bgFilter: 'bg-black/50',
+          })}
+        />
+        {images.length > 3 && (
+          <div className="absolute translate-center-xy text-white z-10 flex items-center text-2xl">
+            <Icon name="plus" />
+            <span>{images.length - 3}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  </Fragment>
+);
 
 const DropZone: FunctionComponent<usePreviewImageProps> = ({ imageFiles, setImageFiles }) => {
   const [images, handleChange] = usePreviewImage({ imageFiles, setImageFiles });
@@ -17,10 +60,12 @@ const DropZone: FunctionComponent<usePreviewImageProps> = ({ imageFiles, setImag
         </div>
         <FileInputBox inputId="dropzone-file" multiple onChange={handleChange} />
         {images.length > 0 ? (
-          <div className="absolute w-full h-full">
-            <p className="w-full h-full">
-              <img className="w-full h-full rounded-md object-cover" src={images[0]} alt="" />
-            </p>
+          <div className="absolute w-full h-full flex pointer-events-none rounded-xl overflow-hidden">
+            {images.length <= 2 ? (
+              <PreviewImageLessThanThree images={images} />
+            ) : (
+              <PreviewImageMoreThanThree images={images} />
+            )}
           </div>
         ) : null}
       </label>

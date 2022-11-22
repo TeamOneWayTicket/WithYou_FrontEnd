@@ -62,6 +62,7 @@ const ProfilePage: NextPage<ProfilePageProps> = ({ user, initialDiaryInfo }) => 
       isLast.current = diariesInfo.isLast;
       nextId.current = diariesInfo.nextId;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleLoadMore = useCallback(async () => {
@@ -79,7 +80,7 @@ const ProfilePage: NextPage<ProfilePageProps> = ({ user, initialDiaryInfo }) => 
     });
     isLast.current = nextDiaryRes.isLast;
     nextId.current = nextDiaryRes.nextId;
-  }, []);
+  }, [setDiariesInfo]);
 
   return (
     <PageLayout

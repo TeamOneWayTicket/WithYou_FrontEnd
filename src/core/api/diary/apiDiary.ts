@@ -1,4 +1,10 @@
-import { ToastError, ToastWarn } from '@src/utils/toast';
+import {
+  ToastError,
+  ToastSuccess,
+  ToastWaitingResult,
+  ToastWaitingResultClose,
+  ToastWarn,
+} from '@src/utils/toast';
 
 import { customAxios } from '../../lib/customAxios';
 import { CommonApiError, isAxiosError } from '../../types/axios-error';
@@ -80,6 +86,7 @@ export const apiCreateDiary = async ({
   content: string;
   imageFiles: File | Array<File> | null;
 }) => {
+  ToastWaitingResult('업로드 중입니다', 1000);
   try {
     const fileNameArray: string[] = [];
     if (imageFiles) {
@@ -97,6 +104,7 @@ export const apiCreateDiary = async ({
       content,
       fileNamesInS3: fileNameArray,
     });
+    ToastSuccess('업로드 완료');
     return data;
   } catch (err) {
     if (isAxiosError<CommonApiError>(err)) {
@@ -107,6 +115,8 @@ export const apiCreateDiary = async ({
       ToastError('다이어리를 생성하는데 실패했습니다.');
       throw err;
     }
+  } finally {
+    ToastWaitingResultClose(1000);
   }
 };
 

@@ -1,13 +1,14 @@
+import { addFamilyDiariesReverse } from '@src/atom/familyDiary';
 import { closeModal } from '@src/atom/modal';
 import { addMyDiaryReverse } from '@src/atom/myDiary';
 import { Button, IconButton } from '@src/components/ui/atom';
 import DropZone from '@src/components/ui/organism/Dropzone';
 import { apiCreateDiary } from '@src/core/api/diary/apiDiary';
 import { ModalContentType } from '@src/core/types/modal-type';
-import { ToastError } from '@src/utils/toast';
+import { ToastInfo } from '@src/utils/toast';
 import { twcDivide } from '@src/utils/twcUtil';
 import cx from 'classnames';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useRef, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 const PostCreateModalContentHeader: FunctionComponent<{
@@ -31,7 +32,9 @@ const PostCreateModalContentHeader: FunctionComponent<{
 };
 
 const PostCreateModalContent: FunctionComponent<ModalContentType> = ({}) => {
+  const isUploading = useRef(false);
   const addMyDiariesCB = useSetRecoilState(addMyDiaryReverse);
+  const addFamilyDiariesCB = useSetRecoilState(addFamilyDiariesReverse);
   const closeModalCB = useSetRecoilState(closeModal);
   const [imageFiles, setImageFiles] = useState([]);
   const [content, setContent] = useState('');
@@ -42,12 +45,26 @@ const PostCreateModalContent: FunctionComponent<ModalContentType> = ({}) => {
       alert('이미지를 업로드해주세요');
       return;
     }
+    if (isUploading.current) {
+      ToastInfo('이미 업로드 중입니다');
+      return;
+    }
+    isUploading.current = true;
     try {
       const diaryElem = await apiCreateDiary({
         content,
         imageFiles,
       });
+      for (let i = 0; i < diaryElem.diary.media.length; i++) {
+        diaryElem.diary.media[i].fileNameInS3 = URL.createObjectURL(imageFiles[i]);
+      }
       addMyDiariesCB((prev) => {
+        return {
+          ...prev,
+          diaries: [diaryElem],
+        };
+      });
+      addFamilyDiariesCB((prev) => {
         return {
           ...prev,
           diaries: [diaryElem],
@@ -55,7 +72,8 @@ const PostCreateModalContent: FunctionComponent<ModalContentType> = ({}) => {
       });
       closeModalCB();
     } catch (e) {
-      ToastError('포스트를 생성할 수 없습니다. 다시 시도해주세요.');
+    } finally {
+      isUploading.current = false;
     }
   };
 

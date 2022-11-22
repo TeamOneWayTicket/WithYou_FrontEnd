@@ -1,6 +1,6 @@
 import { ImageWrapper } from '@src/components/ui/atom';
 import { IDiaryMediaProps } from '@src/core/api/types/api-diary-interface';
-import { FunctionComponent, useCallback, useState } from 'react';
+import { FunctionComponent } from 'react';
 
 interface Props {
   media: IDiaryMediaProps;

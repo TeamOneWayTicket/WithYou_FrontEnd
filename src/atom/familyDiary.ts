@@ -37,4 +37,26 @@ const addFamilyDiaries = selector<DiaryAtom>({
   },
 });
 
-export { addFamilyDiaries, familyDiariesStateAtom };
+const addFamilyDiariesReverse = selector<DiaryAtom>({
+  key: 'diariesStateAtom/addDiariesReverse',
+  get: ({ get }) => {
+    return get(familyDiariesStateAtom);
+  },
+  set: ({ get, set }, newValue) => {
+    if (newValue instanceof DefaultValue) {
+      set(familyDiariesStateAtom, defaultState);
+    } else {
+      const nextDiaries = produce(newValue.diaries, (draft) => {
+        draft.push(...get(familyDiariesStateAtom).diaries);
+      });
+      set(familyDiariesStateAtom, {
+        isInit: true,
+        isLast: newValue.isLast,
+        nextId: newValue.nextId,
+        diaries: nextDiaries,
+      });
+    }
+  },
+});
+
+export { addFamilyDiaries, addFamilyDiariesReverse, familyDiariesStateAtom };

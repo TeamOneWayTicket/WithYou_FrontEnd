@@ -8,7 +8,7 @@ import { apiGetFamilyDiariesInfinite } from '@src/core/api/diary/apiDiary';
 import { ApiGetDiariesInfinite } from '@src/core/api/types/api-diary-interface';
 import siteMetadata from '@src/core/config/siteMetadata';
 import { NextPage } from 'next';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 
 interface HomePageProps {
@@ -44,6 +44,7 @@ const HomePage: NextPage<HomePageProps> = ({ initialDiaryInfo }) => {
       isLast.current = diariesInfo.isLast;
       nextId.current = diariesInfo.nextId;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleLoadMore = useCallback(async () => {

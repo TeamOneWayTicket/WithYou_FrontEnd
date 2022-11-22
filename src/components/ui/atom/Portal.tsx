@@ -12,7 +12,7 @@ const Portal: FC<{
   useEffect(() => {
     setMounted(true);
     return () => setMounted(false);
-  });
+  }, []);
 
   return mounted ? createPortal(children, document.getElementById(selectorId)) : null;
 };

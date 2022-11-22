@@ -9,7 +9,7 @@ import { ApiGetDiaryComments } from '@src/core/api/types/api-diary-comment-inter
 import { ApiGetDiary } from '@src/core/api/types/api-diary-interface';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 interface DetailDiaryPageProps {
   diaryId: number;
@@ -53,16 +53,25 @@ export const getServerSideProps = withAuthSSR(async (ctx) => {
   }
 });
 
+// Todo: render comments section property on server side rendering too
+
 const PostPage: NextPage<DetailDiaryPageProps> = ({
   diaryId,
   initialDiaryInfo,
   initialCommentsInfo,
 }) => {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+  const [diaryInfo, setDiaryInfo] = useState(initialDiaryInfo);
+  const [commentsInfo, setCommentsInfo] = useState(initialCommentsInfo);
 
   const handleBackward = () => {
     router.back();
   };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <PageLayout
@@ -72,10 +81,21 @@ const PostPage: NextPage<DetailDiaryPageProps> = ({
       headerContent={<CommonBackwardHeader onBack={handleBackward} />}
     >
       <div className="relative w-full h-full space-y-2 overflow-y-scroll overflow-x-hidden">
-        <div className="h-auto">
-          <DetailDiaryCard diaryInfo={initialDiaryInfo} />
-        </div>
-        <PostCommentTemplate diaryId={diaryId} initialCommentsInfo={initialCommentsInfo} />
+        {mounted ? (
+          <Fragment>
+            <div className="h-auto">
+              <DetailDiaryCard diaryInfo={diaryInfo} />
+            </div>
+            <PostCommentTemplate diaryId={diaryId} initialCommentsInfo={commentsInfo} />
+          </Fragment>
+        ) : (
+          <Fragment>
+            <div className="h-auto">
+              <DetailDiaryCard diaryInfo={initialDiaryInfo} />
+            </div>
+            <PostCommentTemplate diaryId={diaryId} initialCommentsInfo={initialCommentsInfo} />
+          </Fragment>
+        )}
       </div>
     </PageLayout>
   );

@@ -39,9 +39,6 @@ const nextConfig = {
       plugins: plugins,
     };
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 };
 
 module.exports = withBundleAnalyzer(nextConfig);

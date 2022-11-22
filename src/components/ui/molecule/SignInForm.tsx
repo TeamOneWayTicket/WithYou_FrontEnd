@@ -1,10 +1,4 @@
-import {
-  AppleLoginButton,
-  Button,
-  EmailLoginButton,
-  GoogleLoginButton,
-  KakaoLoginButton,
-} from '@src/components/ui/atom';
+import { EmailLoginButton, KakaoLoginButton } from '@src/components/ui/atom';
 import { SocialAuthHookType } from '@src/core/types/auth-type';
 import React, { FunctionComponent, memo } from 'react';
 

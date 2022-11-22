@@ -10,7 +10,7 @@ const ProfileIntroSection: FunctionComponent<{
   userInfo: CommonUserAuthInfoType['user'];
 }> = ({ userInfo: { thumbnail, nickname, role } }) => {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
-  const [_, copy] = useCopyToClipboard();
+  const [copiedText, copy] = useCopyToClipboard();
   const [familyCode, setFamilyCode] = useState<string | null>(null);
 
   const handleFamilyCodeIssue = useCallback(async () => {

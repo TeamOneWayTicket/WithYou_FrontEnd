@@ -68,7 +68,9 @@ const DiaryCommentTemplate: FunctionComponent<Props> = ({ diaryId, initialCommen
 
   return (
     <Fragment>
-      <DiaryComments />
+      <div className="pb-2">
+        <DiaryComments />
+      </div>
       <div className="fixed bottom-0 w-full max-w-mobile-app">
         <div className="bg-white px-3 py-2">
           <InputBox
