@@ -3,7 +3,7 @@ import ImageWithEditButton from '@src/components/ui/organism/ImageWithEditButton
 import { apiGetInviteCode } from '@src/core/api/apiFamily';
 import { apiUpdateThumbnail } from '@src/core/api/apiProfile';
 import { CommonUserAuthInfoType } from '@src/core/types/auth-type';
-import { useCopyToClipboard } from '@src/hooks/navigation';
+import useCopyToClipboard from '@src/hooks/navigation/useCopyToClipboard';
 import React, { FunctionComponent, useCallback, useEffect, useState } from 'react';
 
 const ProfileIntroSection: FunctionComponent<{
@@ -40,7 +40,7 @@ const ProfileIntroSection: FunctionComponent<{
         <h2>{nickname}</h2>
         <p className="text-wy-blue-500">{role}</p>
         <Button styles="wy-blue" size="small" onClick={handleFamilyCodeIssue}>
-          {familyCode ?? '가족코드 발급'}
+          {copiedText ?? '가족코드 발급'}
         </Button>
       </div>
     </div>

@@ -1,1 +1,1 @@
-export { default as useCopyToClipboard } from './useCopyToClipboard';
+export { default as useShareAPI } from './useShareAPI';

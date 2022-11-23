@@ -7,6 +7,7 @@ import ReviewInfiniteSliderItem from '@src/components/ui/molecule/Slider/content
 import { apiGetFamilyRecommandDiariesByDate } from '@src/core/api/diary/apiDiaryRecommend';
 import { ApiCommonDiaryProps } from '@src/core/api/types/api-diary-interface';
 import siteMetadata from '@src/core/config/siteMetadata';
+import { useShareAPI } from '@src/hooks/navigation';
 import { parseDateHHMMDD } from '@src/utils/dateUtil';
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
@@ -28,9 +29,10 @@ export const getServerSideProps = withAuthSSR(async () => {
 
 const ReviewPage: NextPage<ReviewPageProps> = ({ initialDiaries }) => {
   const [mounted, setMounted] = useState(false);
-
   const [startDate, setStartDate] = useState(new Date());
   const [familyDiaries, setFamilyDiaries] = useState<ApiCommonDiaryProps[]>([]);
+
+  const [isShareSupported, shareCB, withyouShareCB] = useShareAPI();
 
   useEffect(() => {
     setMounted(true);
@@ -59,7 +61,11 @@ const ReviewPage: NextPage<ReviewPageProps> = ({ initialDiaries }) => {
           {mounted ? (
             familyDiaries.length > 0 ? (
               familyDiaries.map((diary, idx) => (
-                <ReviewInfiniteSliderItem key={`review-diary-${idx}}`} diary={diary} />
+                <ReviewInfiniteSliderItem
+                  key={`review-diary-${idx}}`}
+                  diary={diary}
+                  onShareClick={withyouShareCB}
+                />
               ))
             ) : (
               <div className="text-center w-full h-full flex justify-center items-center">
@@ -68,7 +74,11 @@ const ReviewPage: NextPage<ReviewPageProps> = ({ initialDiaries }) => {
             )
           ) : initialDiaries.length > 0 ? (
             initialDiaries.map((diary, idx) => (
-              <ReviewInfiniteSliderItem key={`review-diary-${idx}}`} diary={diary} />
+              <ReviewInfiniteSliderItem
+                key={`review-diary-${idx}}`}
+                diary={diary}
+                onShareClick={withyouShareCB}
+              />
             ))
           ) : (
             <div className="text-center w-full h-full flex justify-center items-center">

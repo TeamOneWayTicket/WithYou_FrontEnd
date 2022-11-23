@@ -17,19 +17,23 @@ import React, {
 
 interface Props {
   diaryId: number;
-  initialCommentsInfo: IComment[];
+  comments: IComment[];
+  onCommentCreated?: (newComments: IComment[]) => void;
 }
 
-const DiaryCommentTemplate: FunctionComponent<Props> = ({ diaryId, initialCommentsInfo }) => {
+const DiaryCommentTemplate: FunctionComponent<Props> = ({
+  diaryId,
+  comments,
+  onCommentCreated,
+}) => {
   const commentDivRef = useRef<HTMLDivElement>(null);
   const [commentInput, setCommentInput] = useState('');
-  const [commentList, setCommentList] = useState(initialCommentsInfo);
 
   useEffect(() => {
     if (commentDivRef.current) {
-      commentDivRef.current.scrollIntoView({ behavior: 'smooth' });
+      commentDivRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
-  }, [commentList]);
+  }, [comments]);
 
   const handleCommentInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCommentInput(e.target.value);
@@ -38,19 +42,19 @@ const DiaryCommentTemplate: FunctionComponent<Props> = ({ diaryId, initialCommen
   const handleOnSendComment = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') return;
     if (commentInput.length === 0) return;
-    const _comments = await apiCreateCommentById({
+    const newComments = await apiCreateCommentById({
       id: diaryId,
       content: commentInput,
     });
     setCommentInput('');
-    setCommentList(_comments);
+    onCommentCreated(newComments);
   };
 
   const DiaryComments = useMemo(() => {
     const RenderComments = () => (
       <div className={cx('bg-primary-bg', 'px-side-padding', twcDivide)}>
-        {commentList.length > 0 &&
-          commentList.map((comment, idx) => (
+        {comments.length > 0 &&
+          comments.map((comment, idx) => (
             <div key={`diary-comment-${idx}`} className="py-4 space-y-2">
               <PostCardHeader
                 profileImage={needDefaultImage(comment.thumbnail)}
@@ -64,7 +68,7 @@ const DiaryCommentTemplate: FunctionComponent<Props> = ({ diaryId, initialCommen
       </div>
     );
     return RenderComments;
-  }, [commentList]);
+  }, [comments]);
 
   return (
     <Fragment>
