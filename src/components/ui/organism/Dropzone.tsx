@@ -8,7 +8,7 @@ const PreviewImageLessThanThree = ({ images }) => (
     {images.map((image, index) => (
       <div
         key={`post-image-${index}`}
-        className="relative flex flex-shrink flex-nowrap w-full h-full basis-1/2"
+        className="relative flex flex-shrink flex-nowrap w-full h-full basis-full"
       >
         <ImageWrapper layout="fill" objectFit="cover" src={image} alt="" />
       </div>
