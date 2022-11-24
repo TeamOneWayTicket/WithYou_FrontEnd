@@ -8,6 +8,12 @@ export interface IDiaryProps {
   media: IDiaryMediaProps[];
 }
 
+export interface IBannerProps {
+  date: string;
+  image: string;
+  subject: string;
+}
+
 export interface IAuthorProps {
   roles: string[];
   id: number;
@@ -39,6 +45,7 @@ export type ApiUpdateDiary = ApiCommonDiaryProps;
 
 export interface ApiGetDiariesInfinite {
   diaries: ApiCommonDiaryProps[];
+  banner: IBannerProps;
   nextId: number | null;
   isLast: boolean;
 }

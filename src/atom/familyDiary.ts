@@ -5,8 +5,9 @@ import { DiaryAtom } from '../core/types/diary-type';
 
 const defaultState: DiaryAtom = {
   isInit: false,
-  isLast: null,
+  isLast: false,
   nextId: null,
+  banner: null,
   diaries: [],
 };
 
@@ -31,6 +32,7 @@ const addFamilyDiaries = selector<DiaryAtom>({
         isInit: true,
         isLast: newValue.isLast,
         nextId: newValue.nextId,
+        banner: newValue.banner,
         diaries: nextDiaries,
       });
     }
@@ -53,6 +55,7 @@ const addFamilyDiariesReverse = selector<DiaryAtom>({
         isInit: true,
         isLast: newValue.isLast,
         nextId: newValue.nextId,
+        banner: newValue.banner,
         diaries: nextDiaries,
       });
     }

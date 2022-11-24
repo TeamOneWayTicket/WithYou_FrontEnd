@@ -56,6 +56,7 @@ const ProfilePage: NextPage<ProfilePageProps> = ({ user, initialDiaryInfo }) => 
         isInit: true,
         isLast: initialDiaryInfo.isLast,
         nextId: initialDiaryInfo.nextId,
+        banner: initialDiaryInfo.banner,
         diaries: initialDiaryInfo.diaries,
       });
     } else {
@@ -76,6 +77,7 @@ const ProfilePage: NextPage<ProfilePageProps> = ({ user, initialDiaryInfo }) => 
       isInit: true,
       isLast: nextDiaryRes.isLast,
       nextId: nextDiaryRes.nextId,
+      banner: nextDiaryRes.banner,
       diaries: nextDiaryRes.diaries,
     });
     isLast.current = nextDiaryRes.isLast;

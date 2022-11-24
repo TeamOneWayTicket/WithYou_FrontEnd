@@ -13,23 +13,36 @@ import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 
 interface ReviewPageProps {
+  initialDate: string | null;
   initialDiaries: ApiCommonDiaryProps[];
 }
 
-export const getServerSideProps = withAuthSSR(async () => {
-  const todayDate = parseDateHHMMDD(new Date());
-  const { diaries } = await apiGetFamilyRecommandDiariesByDate(todayDate);
+export const getServerSideProps = withAuthSSR(async (ctx) => {
+  const { date } = ctx.query;
 
-  return {
-    props: {
-      initialDiaries: diaries,
-    },
-  };
+  if (date) {
+    const { diaries } = await apiGetFamilyRecommandDiariesByDate(date as string);
+    return {
+      props: {
+        initialDate: date as string,
+        initialDiaries: diaries,
+      },
+    };
+  } else {
+    const todayDate = parseDateHHMMDD(new Date());
+    const { diaries } = await apiGetFamilyRecommandDiariesByDate(todayDate);
+    return {
+      props: {
+        initialDate: todayDate,
+        initialDiaries: diaries,
+      },
+    };
+  }
 });
 
-const ReviewPage: NextPage<ReviewPageProps> = ({ initialDiaries }) => {
+const ReviewPage: NextPage<ReviewPageProps> = ({ initialDate, initialDiaries }) => {
   const [mounted, setMounted] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(initialDate ? new Date(initialDate) : new Date());
   const [familyDiaries, setFamilyDiaries] = useState<ApiCommonDiaryProps[]>([]);
 
   const [isShareSupported, shareCB, withyouShareCB] = useShareAPI();

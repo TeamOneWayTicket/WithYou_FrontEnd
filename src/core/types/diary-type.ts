@@ -1,8 +1,5 @@
-import { ApiCommonDiaryProps } from '../api/types/api-diary-interface';
+import { ApiGetDiariesInfinite } from '../api/types/api-diary-interface';
 
-export interface DiaryAtom {
+export interface DiaryAtom extends ApiGetDiariesInfinite {
   isInit: boolean;
-  isLast: boolean | null;
-  nextId: number | null;
-  diaries: ApiCommonDiaryProps[];
 }

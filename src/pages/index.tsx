@@ -38,6 +38,7 @@ const HomePage: NextPage<HomePageProps> = ({ initialDiaryInfo }) => {
         isInit: true,
         isLast: initialDiaryInfo.isLast,
         nextId: initialDiaryInfo.nextId,
+        banner: initialDiaryInfo.banner,
         diaries: initialDiaryInfo.diaries,
       });
     } else {
@@ -57,6 +58,7 @@ const HomePage: NextPage<HomePageProps> = ({ initialDiaryInfo }) => {
       isInit: true,
       isLast: nextDiaryRes.isLast,
       nextId: nextDiaryRes.nextId,
+      banner: nextDiaryRes.banner,
       diaries: nextDiaryRes.diaries,
     });
     isLast.current = nextDiaryRes.isLast;
@@ -71,9 +73,14 @@ const HomePage: NextPage<HomePageProps> = ({ initialDiaryInfo }) => {
       />
       <FullWidthOverflowScrollWrapper>
         {diariesInfo.isInit ? (
-          <MainPostsSection diaries={diariesInfo.diaries} onScrollReachBottom={handleLoadMore} />
+          <MainPostsSection
+            banner={diariesInfo.banner}
+            diaries={diariesInfo.diaries}
+            onScrollReachBottom={handleLoadMore}
+          />
         ) : (
           <MainPostsSection
+            banner={initialDiaryInfo.banner}
             diaries={initialDiaryInfo.diaries}
             onScrollReachBottom={handleLoadMore}
           />

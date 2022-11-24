@@ -40,7 +40,7 @@ const ProfileIntroSection: FunctionComponent<{
         <h2>{nickname}</h2>
         <p className="text-wy-blue-500">{role}</p>
         <Button styles="wy-blue" size="small" onClick={handleFamilyCodeIssue}>
-          {copiedText ?? '가족코드 발급'}
+          {familyCode ?? '가족코드 발급'}
         </Button>
       </div>
     </div>
